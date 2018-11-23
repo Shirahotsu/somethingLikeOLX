@@ -1,0 +1,99 @@
+<article class="p-5 myProfileView">
+  <div class="row">
+    <form *ngIf="isProfil" [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-5 col-8 offset-2">
+        <h1>Mój profil</h1>
+          <div class="row">
+            <div class="col-6">
+              <input name="firstname" type="text" class="form-control mb-4" placeholder="Imię">
+            </div>
+
+            <div class="col-6">
+              <input name="lastName" type="text" class="form-control mb-4" placeholder="Nazwisko">
+            </div>
+
+            <div class="col-6">
+              <input name="email" type="email" class="form-control mb-4" placeholder="E-mail">
+            </div>
+
+            <div class="col-6">
+              <input name="city" type="text" class="form-control mb-4" placeholder="Miasto / Wieś">
+            </div>
+
+            <div class="col-6">
+              <input name="street" type="text" class="form-control mb-4" placeholder="Ulica">
+            </div>
+
+            <div class="col-6">
+              <input name="houseNumber" type="text" class="form-control mb-4" placeholder="Nr domu / mieszkania">
+            </div>
+
+            <div class="col-6">
+              <input name="postAress" type="text" class="form-control mb-4" placeholder="Kod pocztowy">
+            </div>
+
+            <div class="col-6">
+              <input name="tel" type="number" class="form-control mb-4" placeholder="Numer telefonu">
+            </div>
+          </div>
+          <div class="buttonsView">
+            <button (click)="basicModal.show()" mdbBtn color="success" block="true" class="my-4 col-4 offset-4" type="button">Zapisz zmiany</button>
+
+          </div>
+          <div class="buttonsView">
+            <button (click)="toggleProfile()" mdbBtn block="true" class="my-4 col-4 offset-4 primaryColor" type="button">Zmień hasło</button>
+          </div>
+
+          <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h3 class="modal-title w-100" id="myModalLabel">Podaj email i hasło przed zatwierdzeniem danych</h3>
+                </div>
+                <div class="modal-body">
+                      <div class="row">
+                          <div class="col-10 offset-1">
+                            <input name="emailChck" type="email" class="form-control mb-4" placeholder="email">
+                          </div>
+                          <div class="col-10 offset-1">
+                            <input name="passwordChck" type="password" class="form-control mb-4" placeholder="Hasło">
+                          </div>
+                      </div>
+                      <div class="buttonsView">
+                        <button mdbBtn color="success" (click)="basicModal.show()" block="true" class="my-4 col-8 offset-2" type="submit">Zapisz zmiany</button>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <form *ngIf="!isProfil" [formGroup]="profileForm" class="p-5">
+          <h1>Mój profil</h1>
+            <div class="row">
+                <div class="col-6 offset-3">
+                  <input name="password" type="password" class="form-control mb-4" placeholder="Stare hasło">
+                </div>
+                <div class="col-6 offset-3">
+                  <input name="newPassword" type="password" class="form-control mb-4" placeholder="Nowe hasło">
+                </div>
+                <div class="col-6 offset-3">
+                  <input name="newPassword2" type="password"  class="form-control mb-4" placeholder="Powtórz hasło">
+                </div>
+            </div>
+            <div class="buttonsView">
+              <button mdbBtn color="success" (click)="basicModal.show()" block="true" class="my-4 col-4 offset-4" type="submit">Zapisz zmiany</button>
+            </div>
+            <div class="buttonsView">
+                <button (click)="toggleProfile()" mdbBtn block="true" class="my-4 col-4 offset-4 primaryColor" type="button">Zmień dane</button>
+              </div>
+        </form>
+  </div>
+
+
+
+</article>

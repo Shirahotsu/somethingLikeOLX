@@ -1,0 +1,93 @@
+<article class="">
+
+<div class="row">
+    <div class="registerPanel col-xl-4 col-lg-6 offset-lg-0 offset-xl-1 col-md-12 offset-md-0 col-sm-12 offset-sm-0 col-12 offset-0">
+      <h2>Rejestracja</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="px-5">
+
+          <div *ngIf="submitted && f.email.errors" class="invalidRegister red-text font-weight-bold">
+              <div *ngIf="f.email.errors.required">Podaj Email</div>
+          </div>
+          <div *ngIf="submitted && emailExist" class="invalidRegister red-text font-weight-bold">
+              <div *ngIf="emailExist">Podany email jest już zajęty</div>
+          </div>
+        <input   type="email" id="registerEmail" [ngClass]="{ 'isInvalid': submitted && f.email.errors || submitted && emailExist}" formControlName="email" class="form-control mb-4" placeholder="E-mail">
+
+        <div *ngIf="submitted && f.password.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.password.errors.required">Podaj Haslo</div>
+            <div *ngIf="f.password.errors.minlength">Hasło musi zawierać minimum 8 znaków</div>
+        </div>
+        <input name="password"  type="password" id="registerPassword" [ngClass]="{ 'isInvalid': submitted && f.password.errors }" formControlName="password" class="form-control mb-4" placeholder="Hasło">
+
+        <div *ngIf="submitted && f.password2.errors || submitted && registerForm.value.password2 !== registerForm.value.password" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="registerForm.value.password2 !== registerForm.value.password">Podaj to samo hasło</div>
+        </div>
+        <input   type="password" id="registerPassword2" [ngClass]="{ 'isInvalid': submitted && f.password2.errors }" formControlName="password2" class="form-control mb-4" placeholder="Powtórz hasło">
+
+        <div *ngIf="submitted && f.firstName.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.firstName.errors.required">Podaj imię</div>
+        </div>
+        <input name="firstname"  type="text" id="registerName" [ngClass]="{ 'isInvalid': submitted && f.firstName.errors }" formControlName="firstName" class="form-control mb-4" placeholder="Imię">
+
+        <div *ngIf="submitted && f.lastName.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.lastName.errors.required">Podaj Nazwisko</div>
+        </div>
+        <input name="lastname"  type="text" id="registerFullname" [ngClass]="{ 'isInvalid': submitted && f.lastName.errors }" formControlName="lastName" class="form-control mb-4" placeholder="Nazwisko">
+
+        <div *ngIf="submitted && f.number.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.number.errors.required">Podaj Numer</div>
+        </div>
+        <input name="phone" type="tel" id="registerNumber" [ngClass]="{ 'isInvalid': submitted && f.number.errors }" formControlName="number" class="form-control mb-4" placeholder="Numer telefonu / komórkowy">
+
+          <div class="formCheckBox">
+
+            <div>
+              <mdb-checkbox [ngClass]="{ 'red-text': submitted && f.regulamin.errors }" formControlName="regulamin">Zapoznalem się z
+                <span [ngClass]="{ 'red-text': submitted && f.regulamin.errors }" (click)="basicModal.show()">regulaminem</span>
+              </mdb-checkbox>
+            </div>
+            <div>
+              <mdb-checkbox [ngClass]="{ 'red-text': submitted && f.over16.errors }" formControlName="over16">Mam ukończone 16 lat</mdb-checkbox>
+            </div>
+
+            <div>
+              <mdb-checkbox formControlName="newsletter">Chcę się zapisać na newsletter</mdb-checkbox>
+            </div>
+          </div>
+
+        <button mdbBtn block="true" class="my-4 primaryColor" type="submit">Zarejestruj się</button>
+        <button mdbBtn (click)="dummyFun()" block="true" class="my-4 primaryColor" type="button">TEST</button>
+        <button mdbBtn (click)="dummyFun2()" block="true" class="my-4 primaryColor" type="button">TEST2</button>
+        <button mdbBtn (click)="dummyFun3()" block="true" class="my-4 primaryColor" type="button">TEST3</button>
+      </form>
+    </div>
+      <div class="registerInfoImage primaryColor col-6  offset-lg-0 offset-xl-1 ">
+          <h1>Sprzedawaj i kupuj
+            bez wychodzenia
+            z domu</h1>
+            <div class="col-8 offset-2">
+              <img src="../../../assets/shopping-bag.svg" class="img-fluid" alt="">
+            </div>
+            <h2>100% zadowolonych klentów!</h2>
+      </div>
+</div>
+</article>
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h2 class="modal-title w-100 center" id="myModalLabel">Regulamin</h2>
+      </div>
+      <div class="modal-body p-5">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam perferendis nemo, minima laboriosam culpa, odio pariatur perspiciatis voluptatum quis officia natus! Beatae hic consectetur doloremque dolore dicta ad nemo quidem quis, recusandae aut sapiente iure rerum explicabo vitae, ipsa consequatur et a maiores, omnis nesciunt at asperiores neque ipsum saepe. Sapiente reprehenderit exercitationem alias itaque laborum accusantium dolorem, animi soluta beatae, optio libero! Voluptas omnis quod alias, quidem reiciendis obcaecati ea corrupti provident, dolores praesentium tempora illum eos tenetur quis. Sed, dicta? Magni quisquam excepturi laudantium modi libero tenetur, temporibus consectetur voluptatibus illum assumenda ex odio laborum iure a suscipit earum aliquid animi ipsa hic vero molestiae odit molestias. Error doloribus nulla dolorum minima esse culpa cum amet! Iure porro illo culpa asperiores eos aperiam quidem vitae cum, vero dolorum soluta dolorem voluptas explicabo eum velit. Illo nihil est laboriosam consequatur esse, quo voluptatum praesentium facilis. Recusandae unde doloribus labore debitis adipisci officiis dolores quaerat, possimus cumque ut. Nisi, ab. Eaque laudantium deleniti facere impedit excepturi, molestiae, facilis veritatis sequi corrupti est quis qui autem beatae dolores, porro doloribus cumque! Voluptatibus, labore neque ipsa asperiores magni quam facere, quibusdam, animi iure totam corporis eveniet nulla possimus quae. Accusamus sapiente fugit ratione hic perferendis? Eum omnis nam, eaque excepturi a corporis atque provident dolore, perferendis delectus temporibus! Quia saepe iure id mollitia vel voluptatibus quasi. Sequi in facere laborum beatae excepturi optio iure corporis consequuntur accusamus sint aperiam dignissimos tenetur rem at voluptas explicabo labore, obcaecati nemo facilis dolore architecto perspiciatis? Laborum impedit molestias consequuntur fuga quas excepturi repellat, consectetur nemo quibusdam voluptas dolorem. Fuga, facilis repellendus. Suscipit, quis quo ipsa dolorem beatae obcaecati iusto, adipisci et nemo, quam corporis temporibus voluptas magni rerum praesentium architecto quasi excepturi quod consequuntur? Saepe dolorum exercitationem voluptatibus voluptas ea cupiditate deserunt voluptate aut quas, sequi quisquam voluptatem? Eius ipsa debitis reprehenderit architecto officiis labore obcaecati delectus eum, eos facilis temporibus perferendis, a perspiciatis similique vel distinctio exercitationem et atque ullam aliquid. Ut quaerat odit nemo voluptatum id minima quia nihil dolores harum velit saepe nostrum provident facilis minus placeat, quod impedit dolor quasi temporibus. Dolor eius vero ut ipsa sequi aut laudantium, sint eum earum a consequatur molestiae repellendus incidunt culpa provident quisquam in minus repudiandae. Vero, nostrum facilis! Illum distinctio dignissimos, optio amet dolor quod dolorum maiores labore, consectetur quia quos inventore. Enim eum impedit odit ducimus esse mollitia explicabo placeat deserunt dolor ipsa delectus exercitationem nemo soluta, aspernatur vero minus. Velit unde recusandae dignissimos doloremque iste. Totam adipisci nesciunt nostrum reiciendis atque in, ratione magnam, rerum assumenda dignissimos ipsum animi minus aut perspiciatis optio. Quidem itaque accusantium, quasi incidunt consequuntur ea veritatis culpa laudantium veniam laborum voluptatibus eos maiores ipsa impedit quis quia fugit error in earum inventore. Nesciunt ab repudiandae assumenda, praesentium autem maxime modi quos officiis expedita natus id itaque placeat sunt quaerat aliquam error harum earum aut fugit iusto a tempora possimus provident totam! Consequatur voluptas mollitia maiores officiis assumenda rem iusto hic blanditiis exercitationem! Omnis fugit aperiam odit magni dolores consectetur natus minus similique rem. Optio culpa maxime ea rem incidunt veniam perferendis corporis modi tempore inventore reprehenderit possimus ipsa, dolorum, aliquam illo aut ullam libero? Earum, ratione natus iste non obcaecati est voluptas voluptate! Est at in eveniet deserunt distinctio debitis dignissimos repellendus optio laudantium nisi magni ut nostrum, corporis, error sunt ullam cum minima dolores ratione nulla cumque dolorum! Veritatis quibusdam asperiores illo animi ipsum, nihil reiciendis repellat doloribus doloremque earum totam magni dolores ipsam minima ab laboriosam, autem atque inventore recusandae voluptas provident voluptates laudantium. Omnis ullam nostrum repellat dolorem quae nisi eveniet ad enim ut distinctio rem eum placeat optio voluptatem, aperiam sint recusandae vitae repellendus! Eligendi delectus minima accusamus, rem dolore maiores doloribus iusto quasi voluptatum cumque ex explicabo incidunt nihil quia sed aliquid quod, atque tempora similique. Architecto laboriosam asperiores voluptas assumenda minus aliquid numquam laborum explicabo magnam magni! Illo alias porro dolorem minus praesentium, accusamus rerum asperiores, eos labore expedita harum error dolore excepturi recusandae fugit nihil temporibus in sunt? Consequuntur aliquam, culpa vel doloribus facere ipsa, quas cupiditate quis, explicabo tempora saepe? Aut porro id vero ipsum doloremque unde suscipit dolores, labore accusantium. Ut distinctio ea quam atque aliquam labore et sint, neque eum. Dolore nam vel ut nemo accusamus, asperiores, qui, at assumenda nulla repellat saepe ullam mollitia repellendus sunt perspiciatis sint et quos architecto placeat quasi! Impedit, voluptatem eum? Totam nihil voluptatem, repellendus reiciendis recusandae vitae incidunt pariatur illo in odit ut? Est, sit dolore libero quia, expedita cum doloremque facere hic explicabo fuga neque saepe, alias nihil labore atque sunt illum ratione debitis perspiciatis obcaecati unde facilis officia ipsa sequi! Velit quis hic culpa, enim ratione mollitia? Et necessitatibus quia beatae omnis ipsa odio ab recusandae cum. Eaque culpa incidunt voluptates. Mollitia rerum fugiat eaque enim laboriosam est quidem minima! Repudiandae officia, ipsum temporibus omnis voluptatem explicabo a. Officia aspernatur eaque, culpa, nihil totam quam iusto explicabo eos voluptatibus ullam perferendis illum impedit, consequuntur exercitationem velit deleniti ipsa temporibus dolores molestias sapiente omnis est fuga! Voluptatum eos perspiciatis, assumenda quod harum neque ratione doloribus. Voluptatibus, cum. Fugiat corporis odit tempore adipisci, ipsa ipsam facilis numquam at minima consectetur, pariatur ad maxime illo, mollitia natus quisquam debitis asperiores soluta voluptatem. Quasi corporis eligendi accusamus dolor, aliquam minima quia consectetur illo, aliquid nam soluta iure similique facilis culpa eius tempora provident! Harum placeat id vitae nesciunt aut tempore accusamus repellat et architecto impedit velit, earum itaque provident asperiores alias molestias sapiente aspernatur corporis iure in ex quaerat? Necessitatibus natus cum eveniet quo facere distinctio, error dolorum explicabo minima ex voluptatem itaque? Ex non, quibusdam illum doloremque culpa, omnis autem corrupti, doloribus voluptatum aperiam atque! Quibusdam accusamus minus, labore officia earum iure voluptatem omnis molestias provident quo repudiandae aliquam odit facilis modi numquam natus ipsa, hic maiores rerum nam animi voluptatum quos. Unde eum ullam perspiciatis fugit tenetur quo quis nostrum nihil iusto vel ducimus, quisquam vitae, sunt error cum. Facere fugiat ipsum nemo ad iste perspiciatis dolorem vero quo.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="primaryColor" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>

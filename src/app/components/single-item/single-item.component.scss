@@ -1,0 +1,41 @@
+.item-btn{
+  width: 100%;
+
+}
+.item-buttons{
+}
+.item-buttons button{
+  font-size: 1.5em;
+}
+.item-price{
+  font-size: 3.3em;
+}
+.profile{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 10px 5px;
+}
+.profileIcon{
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profileTxt{
+  font-size: 1.6em;
+}
+.res-img{
+}
+.itemTitle, .itemInfo{
+  padding-left: 13px;
+}
+.itemImageE{
+    margin-top: 20px;
+}
+.itemInfo{
+  font-size: 1.3em;
+}

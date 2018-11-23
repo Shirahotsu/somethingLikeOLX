@@ -1,0 +1,45 @@
+<div class="progrssBarView">
+  <div class="progressBarCircle" [ngClass]="(itemsChecked >= 1)?'progressBarCircleChecked':'progressBarCircleNotChecked'">
+    <mdb-icon *ngIf="itemsChecked >=1" size="2x" icon="check" class="searchIcon2"></mdb-icon>
+  </div>
+
+  <div class="progressBarLine">
+    <div [@moveLine]='state1' class="progressBarLineChecked"></div>
+  </div>
+
+
+
+  <div class="progressBarCircle" [ngClass]="(itemsChecked >= 2)?'progressBarCircleChecked':'progressBarCircleNotChecked'">
+    <mdb-icon *ngIf="itemsChecked >=2" size="2x" icon="check" class="searchIcon2"></mdb-icon>
+  </div>
+
+  <div class="progressBarLine">
+      <div [@moveLine]='state2' class="progressBarLineChecked"></div>
+  </div>
+
+
+
+  <div class="progressBarCircle" [ngClass]="(itemsChecked >= 3)?'progressBarCircleChecked':'progressBarCircleNotChecked'">
+    <mdb-icon *ngIf="itemsChecked >=3" size="2x" icon="check" class="searchIcon2"></mdb-icon>
+  </div>
+
+  <div class="progressBarLine">
+    <div [@moveLine]='state3' class="progressBarLineChecked"></div>
+  </div>
+
+
+
+  <div class="progressBarCircle" [ngClass]="(itemsChecked >= 4)?'progressBarCircleChecked':'progressBarCircleNotChecked'">
+    <mdb-icon *ngIf="itemsChecked >=4" size="2x" icon="check" class="searchIcon2"></mdb-icon>
+  </div>
+
+  <div class="progressBarLine">
+    <div [@moveLine]='state4' class="progressBarLineChecked"></div>
+  </div>
+
+
+
+  <div class="progressBarCircle" [ngClass]="(itemsChecked >= 5)?'progressBarCircleChecked':'progressBarCircleNotChecked'">
+    <mdb-icon *ngIf="itemsChecked >=5" size="2x" icon="check" class="searchIcon2"></mdb-icon>
+  </div>
+</div>

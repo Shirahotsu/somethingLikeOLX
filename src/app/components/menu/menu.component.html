@@ -1,0 +1,73 @@
+<nav class="primaryColor desktopNav">
+  <div class="por menu-buttons-view">
+    <button id="xdelo" [@searchPanel]='state' (click)='changState()' (clickOutside)="onClickedOutside($event)" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
+      <mdb-icon  [ngClass]="{searchIcon: searchBtn2}" size="2x" icon="search" class="searchIcon2"></mdb-icon>
+
+      <form [formGroup]="searchForm" *ngIf="wideBtns" action="" class="searchForm">
+        <input formControlName="search"  type="text" id="form1" class="form-control" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
+      </form>
+
+    </button>
+    <button (click)="checkFavCatBtn()" routerLink="/" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover mt-4" mdbTooltip="Strona Główna">
+      <mdb-icon size="2x" icon="home" aria-hidden="true"></mdb-icon>
+    </button>
+    <button *ngIf="isThereFavCat" routerLink="/najnowsze" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="Najnowsze">
+      <mdb-icon size="2x" icon="star" aria-hidden="true"></mdb-icon>
+    </button>
+      <ng-container *ngFor='let mItem of menuItem'>
+        <button  routerLink="/category/{{mItem.cat}}" placement="right" *ngIf="mItem.visible" type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="{{mItem.cat}}">
+          <mdb-icon size="2x" icon="{{mItem.icon}}"></mdb-icon>
+        </button>
+      </ng-container>
+      <hr>
+      <div class="mt-4">
+          <div *ngIf="!isLogged" (click)="showLoginForm()" (clickOutside)="hideLoginForm($event)">
+              <button   placement="right" type="button"  class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="Zaloguj/Zarejestruj">
+                <mdb-icon class="whiteColorText accentColorTextHover" size="2x" icon="sign-in" aria-hidden="true"></mdb-icon>
+              </button>
+              <ng-container *ngIf="isLogingIn">
+                  <div  class="loginForm white p-4 z-depth-2">
+                      <form [formGroup]="loginForm" action="" class="logSingForm">
+                          <input  type="text" id="lForm1" formControlName="email" class="form-control" placeholder="Email">
+                          <input  type="text" id="lForm2" formControlName="password" class="form-control" placeholder="Hasło">
+                      </form>
+                      <button type="submit" color="amber"  mdbWavesEffect block="true" mdbBtn class="waves-light">Zaloguj się</button>
+                      <button type="submit" color="yellow" (click)='hideLoginForm()' routerLink="/rejestracja"  mdbWavesEffect block="true" mdbBtn class="waves-light mt-4">Zarejestruj się</button>
+                  </div>
+                </ng-container>
+              </div>
+        <ng-container *ngIf="isLogged">
+          <button routerLink="/dodaj-przedmiot" placement="right" type="button"  class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Doddaj produkt">
+            <mdb-icon size="2x" icon="plus" aria-hidden="true"></mdb-icon>
+          </button>
+          <button routerLink="/profil" placement="right" type="button"  class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Mój profil">
+            <mdb-icon size="2x" icon="user-circle" aria-hidden="true"></mdb-icon>
+          </button>
+          <button (click)="basicModal.show()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
+            <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
+          </button>
+          <!-- <button (click)="logoutUser()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
+            <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
+          </button> -->
+        </ng-container>
+      </div>
+  </div>
+</nav>
+
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Na pewno chcesz się wylogować?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn class="waves-light primaryColor" mdbWavesEffect aria-label="Close" (click)="basicModal.hide()">Nie</button>
+          <button type="button" mdbBtn class="waves-light accentColor" mdbWavesEffect                     (click)="logoutUser(); basicModal.hide()">Tak</button>
+        </div>
+      </div>
+    </div>
+  </div>

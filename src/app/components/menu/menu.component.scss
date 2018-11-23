@@ -1,0 +1,142 @@
+nav{
+  height: 100vh;
+  width: 90px;
+  color: #fff;
+  padding: 0 10px;
+  position: fixed;
+  z-index: 99;
+}
+.search-button{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  overflow: initial;
+// w500 borrad 10px
+
+}
+.searchIcon{
+  z-index: 99;
+  position: absolute;
+  top: 18px !important;
+  left: 18px !important;
+  cursor: pointer;
+}
+.searchIcon2{
+  z-index: 99;
+  position: absolute;
+  top: 18px;
+  left: 23px;
+  cursor: pointer;
+}
+.searchForm{
+  width: 80%;
+  position: absolute;
+}
+ngui-auto-complet{
+}
+li, ul{
+  padding: 0;
+  margin: 0;
+}
+.menu-buttons{
+  background-color: transparent;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  padding-left: 10px;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.buttonActive{
+  width: 700px;
+}
+.menu-buttons span{
+  opacity: 0;
+  position: absolute;
+  width: 100px;
+  left: 80px;
+  padding: 18px 10px;
+
+}
+.menu-buttons:hover{
+
+}
+.menuTxt{
+  color: inherit;
+}
+.menu-buttons:active, .menu-buttons:focus{
+  outline: none;
+}
+.more-menu{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #414141;
+  width: 70px;
+}
+
+
+.menu-buttons-view{
+  z-index: 20;
+}
+.searchForm{
+  z-index: 999;
+}
+.formView{
+  position: fixed;
+  top: 0px;
+  border-radius: 10px;
+  left: 20px;
+  width: 500px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 20;
+}
+.loginForm{
+  position: fixed;
+  width: 300px;
+  height: auto;
+  left: 120px;
+  top: 84px;
+  border-radius: 4px;
+  z-index: 20;
+}
+.loginForm input{
+  margin: 20px 0px;
+}
+.loginForm button{
+  font-size: 0.8em;
+}
+.mobileNav{
+  display: none;
+}
+.modal-title{
+  text-align: center;
+}
+.btnsView{
+  display: flex;
+  justify-content: space-around;
+}
+.modal-footer{
+  display: flex;
+  justify-content: space-around;
+}
+@media only screen and (max-width: 576px){
+  .desktopNav{
+    display: none
+  }
+  .mobileNav{
+    display: block;
+  }
+}

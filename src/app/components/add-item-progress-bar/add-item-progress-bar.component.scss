@@ -1,0 +1,59 @@
+.progrssBarView{
+  padding-top: 50px;
+  // padding-right: 10px;
+}
+mdb-icon{
+  color: #fff
+}
+.progressBarCircle{
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  margin: 4px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.progressBarLine{
+  width: 8px;
+  height: 110px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+
+
+.progressBarCircleChecked{
+  background-color: #28afb0;
+
+}
+
+
+
+.progressBarCircleNotChecked{
+  border: 8px solid white;
+  background-color: transparent;
+  transition: 0.5s ease-in-out;
+
+}
+
+
+
+
+
+.progressBarLineChecked{
+  background-color: #28afb0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.progressBarLineNotChecked{
+
+}
+

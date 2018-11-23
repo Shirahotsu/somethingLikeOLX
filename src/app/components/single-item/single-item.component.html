@@ -1,0 +1,53 @@
+<article class="">
+  <div class="white p-5">
+    <div class="row">
+      <div class="col-5 offset-2">
+        <img src="{{itemObj.image}}" class="img-fluid itemImageE" alt="">
+      </div>
+      <div class="col-3 offset-1">
+        <div class="row"><span class="item-price">{{itemObj.price}} zł</span></div>
+        <div class="row item-buttons">
+          <button mdbBtn type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
+            Kup teraz</button>
+
+          <button mdbBtn type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              Dodaj do koszyka</button>
+          <button mdbBtn disabled type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              {{itemObj.author}}</button>
+          <button mdbBtn disabled type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              Ocena: {{itemObj.score}}/5 <br>({{itemObj.votes}} głosów)</button>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <div class="row col-12">
+        <div class="col-12 pt-5"><header class="itemTitle">{{itemObj.name}}</header></div>
+      </div>
+      <div class="row">
+        <div class="col-12 pt-3">
+          <p class="itemInfo">
+            {{itemObj.content}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="white px-5 py-5">
+    <header>Proponowane produkty:</header>
+    <div class="itemsGallery">
+        <div class="itemsShocase row">
+
+            <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU' class="itemsView  col-xl-3 col-lg-4 col-md-6 offset-md-0 col-sm-8 offset-sm-2 col-xs-12">
+              <div class="itmesInner">
+                <div class="itemImage">
+                  <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+                </div>
+                <div class="itemPrice">{{item.price}}zł</div>
+                <div class="itemName">{{item.name}}</div>
+
+
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</article>
