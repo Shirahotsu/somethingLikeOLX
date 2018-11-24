@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
-
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss']
+  selector: 'app-modify-profile',
+  templateUrl: './modify-profile.component.html',
+  styleUrls: ['../my-profile/my-profile.component.scss']
 })
-export class MyProfileComponent implements OnInit {
+export class ModifyProfileComponent implements OnInit {
   profileForm = this.fb.group({
     firstName:  ['',Validators.required],
     lastName:   ['',Validators.required],
@@ -15,8 +13,6 @@ export class MyProfileComponent implements OnInit {
     email:      ['', [Validators.required]],
     passwordChck:   ['', [Validators.required, Validators.minLength(8)]],
     city:       [''],
-    street:     [''],
-    houseNumber:[''],
     postAdress: [''],
   });
   profileForm2 = this.fb.group({
@@ -26,7 +22,6 @@ export class MyProfileComponent implements OnInit {
   });
   public isProfil:boolean;
   public submitted:boolean = false;
-  activeLink:boolean[] = [false,true, false];
   constructor(private fb: FormBuilder) {
     this.isProfil = true;
   }
@@ -51,13 +46,5 @@ export class MyProfileComponent implements OnInit {
   toggleProfile(){
     this.isProfil = !this.isProfil;
   }
-  activeBtn(e){
-    this.disableActiveLinks();
-    this.activeLink[e]=true;
-  }
-  disableActiveLinks(){
-    for(let i = 0; i<3;i++){
-      this.activeLink[i] = false;
-    }
-  }
+
 }

@@ -1,0 +1,35 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-5 ">
+    <h1>Mój profil</h1>
+      <div class="row">
+        <div class="col-12 mb-4">
+          <input name="firstname" type="text" class="form-control mb-4" placeholder="Imię">
+        </div>
+
+        <div class="col-12 mb-4">
+          <input name="lastName" type="text" class="form-control mb-4" placeholder="Nazwisko">
+        </div>
+
+        <div class="col-12 mb-4">
+          <input name="email" type="email" class="form-control mb-4" placeholder="E-mail">
+        </div>
+
+        <div class="col-12 mb-4">
+          <input name="city" type="text" class="form-control mb-4" placeholder="Miasto / Wieś">
+        </div>
+
+        <div class="col-12 mb-4">
+          <input name="postAress" type="text" class="form-control mb-4" placeholder="Kod pocztowy">
+        </div>
+
+        <div class="col-12 mb-4">
+          <input name="tel" type="number" class="form-control mb-4" placeholder="Numer telefonu">
+        </div>
+      </div>
+      <div class="buttonsView">
+        <button mdbBtn block="true" class="my-4 col-6 offset-3 accentColor" type="button">Zapisz zmiany</button>
+
+      </div>
+
+
+
+    </form>

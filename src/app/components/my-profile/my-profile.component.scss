@@ -1,20 +1,81 @@
 .myProfileView{
   width: 100%;
   height: 100%;
-  background:url('../../../assets/addProductBgc.jpg');
+  background:url('../../../assets/myProfileBgc.jpg');
   background-position: center;
   padding-top: 80px;
+  height: 100vh;
 }
+.formView{
+  background: rgba(255, 255, 255, 1);
+  height: 100%;
+  border-radius: 5px;
+  padding: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.formView::-webkit-scrollbar {
+  width: 8px;
+}
+
+.formView::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.formView::-webkit-scrollbar-thumb {
+  background-color: #e7e7e7;
+  border-radius: 5px;
+}
+.btn-group{
+  padding: 0;
+}
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group, .btn-group-vertical .btn + .btn, .btn-group-vertical .btn + .btn-group, .btn-group-vertical .btn-group + .btn, .btn-group-vertical .btn-group + .btn-group {
+  margin-left: 0px;
+}
+form{
+  ::placeholder, label{
+    color: #255c99;
+    font-weight: bold;
+  }
+  input, select{
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    border-bottom: #255c99 2px solid;
+  }
+  input:focus, select:focus{
+    outline: 0;
+    box-shadow: none;
+    border-bottom-color: #65D6E8;
+    &::placeholder, label{
+      color: #65D6E8;;
+      font-weight: bold;
+    }
+  }
+}
+span{
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.activeBtn{
+  font-size: 1.3em;
+  color: #65D6E8;
+}
+
 article{
   height: 100vh;
   display: flex;
   justify-content: space-evenly;
 }
 h1{
+  margin-top: 0.75rem;
   display: block;
   width: 100%;
   text-align: center;
-  color: #ffffff;
   margin-bottom: 50px;
   font-weight: bold;
   font-variant: small-caps;
@@ -29,7 +90,40 @@ h3 {
 }
 form{
   input, select{
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: transparent;
   }
 
+}
+.nonVis{
+  border-bottom: none !important;
+}
+.myProductBtn{
+  cursor: pointer;
+  font-weight: bold;
+}
+.prodInfo{
+  font-size: 1.2em;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+.myProduct{
+  height: 50px;
+  border-bottom: #aaaaaa 1px solid;
+}
+.cutText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 160px;
+  text-align: left;
+  height: 1.2em;
+  white-space: nowrap;
+  font-size: 1.2em;
+}
+@media only screen and (max-width: 767px){
+  .myProfileView{
+    padding: 0px;
+  }
+  .formView{
+    padding: 0px;
+  }
 }

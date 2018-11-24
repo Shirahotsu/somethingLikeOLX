@@ -1,5 +1,6 @@
-<article class="">
-        <div class="registerPanel col-xl-7 offset-xl-2 col-lg-10 offset-lg-1 col-12 offset-0">
+<article>
+    <app-add-item-progress-bar class="registerInfoImage primaryColor col-1"></app-add-item-progress-bar>
+        <div class="registerPanel col-xl-7 offset-xl-2 col-lg-11 offset-lg-0 col-md-11 offset-md-0 col-12 offset-0">
           <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()" class="px-5">
               <h1 class="mb-4">Dodaj produkt</h1>
 
@@ -54,15 +55,17 @@
             </div>
 
             <div class="row">
-              <div class="col-2">
+              <div class="col-4 buttonsView">
                 <div class="file ">
                   <input type="file" name="file" id="file" (change)="onSelectFile($event)"/>
                   <label placement="right" mdbTooltip="Dodaj zdjęcie" for="file"><mdb-icon size="2x" icon="file-image-o"></mdb-icon></label>
                 </div>
-                <button placement="right" mdbTooltip="Wyślij" [disabled]="cantSendItem" mdbBtn  class="my-4 accentColor" type="submit"><mdb-icon size="2x" icon="send"></mdb-icon></button>
+                <div>
+                  <button placement="right" [ngClass]="{'pulse': !cantSendItem}" mdbTooltip="Wyślij" [disabled]="cantSendItem" mdbBtn  class="my-4" type="submit"><mdb-icon size="2x" icon="cloud-upload"></mdb-icon></button>
+                </div>
               </div>
 
-              <div *ngIf="choosenImg" class="col-10 imageResponse">
+              <div *ngIf="choosenImg" class="col-8 imageResponse">
                 <img [src]="url" alt="">
               </div>
             </div>
@@ -72,5 +75,5 @@
 
           </form>
         </div>
-          <app-add-item-progress-bar class="registerInfoImage primaryColor col-1 offset-xl-2 offset-0"></app-add-item-progress-bar>
+
     </article>

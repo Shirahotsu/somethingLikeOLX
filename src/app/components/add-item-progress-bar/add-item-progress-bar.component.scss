@@ -1,5 +1,6 @@
 .progrssBarView{
-  padding-top: 50px;
+  padding-top: 24px;
+  height: 100%;
   // padding-right: 10px;
 }
 mdb-icon{
@@ -7,15 +8,15 @@ mdb-icon{
 }
 .progressBarCircle{
   border-radius: 50%;
-  width: 65px;
-  height: 65px;
+  width: 52px;
+  height: 52px;
   margin: 4px 0px;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 .progressBarLine{
-  width: 8px;
+  width: 5px;
   height: 110px;
   margin-left: auto;
   margin-right: auto;
@@ -26,19 +27,19 @@ mdb-icon{
 
 
 
-.progressBarCircleChecked{
-  background-color: #28afb0;
+// .progressBarCircleChecked{
+//   background-color: #28afb0;
 
-}
+// }
 
 
 
-.progressBarCircleNotChecked{
-  border: 8px solid white;
-  background-color: transparent;
-  transition: 0.5s ease-in-out;
+// .progressBarCircleNotChecked{
+//   border: 5px solid white;
+//   background-color: transparent;
+//   transition: 0.5s ease-in-out;
 
-}
+// }
 
 
 

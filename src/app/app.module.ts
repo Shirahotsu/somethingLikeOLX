@@ -27,6 +27,9 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { PageNotFoundComponent } from '@components/page-not-found/page-not-found.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { AddItemProgressBarComponent } from './components/add-item-progress-bar/add-item-progress-bar.component';
+import { ModifyProfileComponent } from './components/modify-profile/modify-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
 
 const routes: Routes = [
   {
@@ -76,6 +79,9 @@ const routes: Routes = [
     PageNotFoundComponent,
     AddItemComponent,
     AddItemProgressBarComponent,
+    ModifyProfileComponent,
+    ChangePasswordComponent,
+    MyProductsComponent,
     ],
   imports: [
     BrowserAnimationsModule,

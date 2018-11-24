@@ -32,6 +32,24 @@ import {
       transition("inactive => active", animate("300ms ease-in")),
       transition("active => inactive", animate("300ms ease-out"))
     ]),
+    trigger("checkCircle", [
+      state(
+        "inactive",
+        style({
+          border: '5px solid white',
+          backgroundColor: 'transparent',
+          transition: '0.5s ease-in-out'
+        })
+      ),
+      state(
+        "active",
+        style({
+          backgroundColor: '#28afb0'
+        })
+      ),
+      transition("inactive => active", animate("200ms ease-in")),
+      transition("active => inactive", animate("200ms ease-out"))
+    ]),
   ]
 })
 export class AddItemProgressBarComponent implements OnInit {
@@ -40,11 +58,12 @@ export class AddItemProgressBarComponent implements OnInit {
   state2:string= 'inactive';
   state3:string= 'inactive';
   state4:string= 'inactive';
+  state5:string= 'inactive';
   constructor(private progressBar: ProgressBarService) {
     this.progressBar.thingsDone.subscribe(
       res=> {
       this.itemsChecked = res
-      this.checkState(res);
+      this.checkState(this.itemsChecked);
 
       }
     )
@@ -52,7 +71,14 @@ export class AddItemProgressBarComponent implements OnInit {
 
   ngOnInit() {
   }
+  ngOnDestroy(): void {
+    this.itemsChecked = 0;
+    this.checkState(this.itemsChecked);
+  }
   checkState(e){
+    if(e>=5){
+      this.state5 = 'active';
+    }
     if(e>=4){
       this.state4 = 'active';
     }
@@ -64,6 +90,9 @@ export class AddItemProgressBarComponent implements OnInit {
     }
     else if(e>=1){
       this.state1 = 'active';
+    }
+    if(e<5){
+      this.state5 = 'inactive';
     }
     if(e<4){
       this.state4 = 'inactive';
