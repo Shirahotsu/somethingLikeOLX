@@ -2,30 +2,38 @@
   <div class="white p-5">
     <div class="row">
       <div class="col-5 offset-2">
-        <img src="{{itemObj.image}}" class="img-fluid itemImageE" alt="">
+        <img src="{{product.image}}" class="img-fluid itemImageE" alt="">
       </div>
       <div class="col-3 offset-1">
-        <div class="row"><span class="item-price">{{itemObj.price}} zł</span></div>
+        <div class="row"><span class="item-price">{{product.price}} zł</span></div>
         <div class="row item-buttons">
-          <button mdbBtn type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
-            Kup teraz</button>
 
-          <button mdbBtn type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              Dodaj do koszyka</button>
-          <button mdbBtn disabled type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              {{itemObj.author}}</button>
-          <button mdbBtn disabled type="button"  class="primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              Ocena: {{itemObj.score}}/5 <br>({{itemObj.votes}} głosów)</button>
+          <button mdbBtn disabled type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              {{product.author}}</button>
+          <button mdbBtn disabled type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
+            {{product.city}}
+          </button>
+
+              <app-users-items class="col-12 noPd"></app-users-items>
+
+          <button mdbBtn type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
+            Wyślij wiadomość</button>
+
+          <!-- <button mdbBtn type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              Dodaj do koszyka</button> -->
+
+
+
         </div>
         <div class="col-1"></div>
       </div>
       <div class="row col-12">
-        <div class="col-12 pt-5"><header class="itemTitle">{{itemObj.name}}</header></div>
+        <div class="col-12 pt-5"><header class="itemTitle">{{product.name}}</header></div>
       </div>
       <div class="row">
         <div class="col-12 pt-3">
           <p class="itemInfo">
-            {{itemObj.content}}
+            {{product.content}}
           </p>
         </div>
       </div>

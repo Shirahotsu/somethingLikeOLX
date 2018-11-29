@@ -54,17 +54,17 @@ import {
 })
 export class AddItemProgressBarComponent implements OnInit {
   itemsChecked:number
-  state1:string= 'inactive';
-  state2:string= 'inactive';
-  state3:string= 'inactive';
-  state4:string= 'inactive';
-  state5:string= 'inactive';
+  state1:string;
+  state2:string;
+  state3:string;
+  state4:string;
+  state5:string;
   constructor(private progressBar: ProgressBarService) {
+
     this.progressBar.thingsDone.subscribe(
       res=> {
       this.itemsChecked = res
       this.checkState(this.itemsChecked);
-
       }
     )
   }
@@ -72,14 +72,13 @@ export class AddItemProgressBarComponent implements OnInit {
   ngOnInit() {
   }
   ngOnDestroy(): void {
-    this.itemsChecked = 0;
-    this.checkState(this.itemsChecked);
+    this.resetAllAnimation();
   }
   checkState(e){
     if(e>=5){
       this.state5 = 'active';
     }
-    if(e>=4){
+    else if(e>=4){
       this.state4 = 'active';
     }
     else if(e>=3){
@@ -106,5 +105,15 @@ export class AddItemProgressBarComponent implements OnInit {
     if(e<1){
       this.state1 = 'inactive';
     }
+  }
+  resetAllAnimation(){
+    this.state5 = 'inactive';
+    this.state4 = 'inactive';
+    this.state3 = 'inactive';
+    this.state2 = 'inactive';
+    this.state1 = 'inactive';
+    this.progressBar.resetAllThings();
+    this.itemsChecked = 0;
+    this.progressBar.setThing(0,0);
   }
 }

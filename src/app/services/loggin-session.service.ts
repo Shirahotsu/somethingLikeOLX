@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { stringify } from '@angular/compiler/src/util';
+import { JwtTokenService } from './jwt-token.service';
+import { InfoModalService } from './info-modal.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -11,34 +13,50 @@ const httpOptions = {
     observe: 'response'
   })
 };
+
 @Injectable({
   providedIn: 'root'
 })
 export class LogginSessionService {
-
+  // test
+  httpOptions2 = {
+    headers: new HttpHeaders({
+      'Authorization': this.jwt.getJwtToken()
+    })
+  };
   isLoggedIn:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  url:string = 'http://192.168.0.4:8090/logout';
-  url2:string = 'http://25.39.174.175:8090/logout';
+  url1:string = 'http://192.168.0.4:8090/rest/user/signIn';
+  url2:string = 'http://192.168.0.4:8090/rest/category/allCategories';
   date:Date;
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private jwt: JwtTokenService,
+    private infoModal: InfoModalService
+    ) {
+      console.log(this.jwt.getJwtToken());
   }
 
-  loggInUser(){
+  logInUserLocal(e){
     localStorage.setItem('ZG9udERlY29kZUl0', "ZnVubnRDb2Rl");
+    this.jwt.setJwtToken(e);
     this.setSessionExp();
     this.setIsLoggedIn();
   }
+  sendloginReq(e,p):any{
+    return this.http.post<any>(this.url1, {email:e, password:p
+    }, httpOptions).pipe(map(
+      res => {return res},
+      error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+      ));
+  }
 
   loggOutUser(){
-    this.logout().subscribe(
-      res=> console.log(res)
-    )
     localStorage.setItem('ZG9udERlY29kZUl0', "aWR1bm5v");
     this.delSessionExp();
     this.setIsLoggedIn();
   }
 
-  getLoggedUser(){
+  getLoggedUser():string{
     return localStorage.getItem('ZG9udERlY29kZUl0');
   }
 
@@ -50,19 +68,12 @@ export class LogginSessionService {
       this.isLoggedIn.next(false)
     }
   }
-
-  logout():any{
-    return this.http.post<any>(this.url2, {
-    }, httpOptions).pipe(map(res => {return res}));
-  }
-
   checkExpDate(){
     let expDate = this.getSessionExp();
     let currDate:number = new Date().getTime();
     if(currDate > expDate){
       this.loggOutUser();
     }
-    else this.loggInUser();
   }
 
   checkIfCurrentLogged(){
@@ -72,8 +83,9 @@ export class LogginSessionService {
   }
 
   setSessionExp(){
+    const sixHours = 21600000;
     const currDate = new Date();
-    let expDate:string = stringify(currDate.getTime()+ 1800000);
+    let expDate:string = stringify(currDate.getTime()+ sixHours);
     localStorage.setItem('bm9Ob1VEb250', expDate);
   }
 
@@ -83,5 +95,15 @@ export class LogginSessionService {
 
   delSessionExp(){
     localStorage.setItem('bm9Ob1VEb250', "0");
+    this.jwt.delJwtToken();
+  }
+
+
+  getAllCat(){
+    this.http.get(this.url2, this.httpOptions2).subscribe(
+      res => console.log(res),
+      err => console.warn(err),
+      () => console.log('yay')
+    );
   }
 }

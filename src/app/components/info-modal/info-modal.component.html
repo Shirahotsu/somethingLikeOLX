@@ -1,0 +1,12 @@
+<div (click)="closeModal()" [@infoModal]='modalState' class="infoModal"   role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-4">
+          {{modalMessage}}
+      </div>
+      <div class="modal-footer btnsView">
+        <button (click)="closeModal()" type="button" mdbBtn  class="accentColor waves-light" aria-label="Close" mdbWavesEffect>Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>

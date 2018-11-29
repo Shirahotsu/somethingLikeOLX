@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProgressBarService } from '@services/progress-bar.service'
-
+import { AddItemInfoService } from '@services/add-item-info.service';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router"
+import { InfoModalService } from '@services/info-modal.service';
 
 @Component({
   selector: 'app-add-item',
@@ -22,10 +26,21 @@ export class AddItemComponent implements OnInit {
     description:   ['',Validators.required],
     price:   ['', Validators.required],
   });
+  formData:FormData = new FormData();
+  file22: File;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1NDM0NDc3NzIsInN1YiI6InRlc3QudEB3cC5wbCIsImVtYWlsIjoidGVzdC50QHdwLnBsIiwicGFzc3dvcmQiOiIyMjIyMjIifQ.qiX_ndacR5j5IZwlzw_1usBun0r1wFdERk-Ms4YoVluOrKSk1M9JYUJU1ePIE4UaZ6nJb3_JUENGI7tZk_wDuQ'
+    })
+  };
 
   constructor(
     private fb: FormBuilder,
-    private progressBar: ProgressBarService
+    private progressBar: ProgressBarService,
+    private http: HttpClient,
+    private addItem:AddItemInfoService,
+    private router: Router,
+    private infoModal: InfoModalService
     ) {
       this.progressBar.thingsDone.subscribe(
         res=> {
@@ -37,17 +52,53 @@ export class AddItemComponent implements OnInit {
 
   ngOnInit() {
   }
+  ngOnDestroy(): void {
+    this.progressBar.resetAllThings();
+
+  }
   get f() { return this.addItemForm.controls; }
 
   onSubmit(){
 
     this.subbmited= true;
-    if (this.addItemForm.invalid || this.addItemForm.value.category === '') {
-      return;
-    }
-  else{
-    this.isCatChoosen = true;
+    // if(this.checkIfCatChoosen()){
+    //   return;
+    // }
+    // else {
+    //   this.addItemTo();
+    // }
+    this.addItemTo();
+
   }
+
+  addItemTo(){
+    let formDataInfo ={
+      image: this.file22,
+      product: {
+        name:  this.addItemForm.value.name,
+        description:  this.addItemForm.value.description,
+        price:  this.addItemForm.value.price,
+        category_id:  this.addItemForm.value.category
+      }
+    }
+    console.log(JSON.stringify(formDataInfo.product));
+    this.formData.append('image', formDataInfo.image);
+    this.formData.append('product', JSON.stringify(formDataInfo.product));
+    this.addItem.sendItem(this.formData).subscribe(
+      res => {
+        if(res[0] === "GIT"){
+          this.router.navigate(['/profil']);
+        }
+        else if(res[0] === "BLAD"){
+          this.infoModal.setAndShowModal(res[1]);
+        }
+        else{
+          return;
+        }
+      }
+    );
+
+    // this.addItem.sendItemInfo(this.addItemForm.value);
   }
 
   checkIfName(e){
@@ -83,6 +134,15 @@ export class AddItemComponent implements OnInit {
     }
     else this.progressBar.setThing(3,0);
   }
+  checkIfCatChoosen():boolean{
+    if (this.addItemForm.invalid || this.addItemForm.value.category === '') {
+      return false;
+    }
+  else{
+    this.isCatChoosen = true;
+    return true;
+  }
+  }
 
   onSelectFile(event:any) {
     if(event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/png')
@@ -95,6 +155,7 @@ export class AddItemComponent implements OnInit {
 
           reader.onload = (event:any) => {
               this.url = event.target.result;
+              console.log(this.prepareSave())
           }
 
           reader.readAsDataURL(event.target.files[0]);
@@ -105,6 +166,29 @@ export class AddItemComponent implements OnInit {
       this.fileError = true;
       return
     }
+}
+onFileChange(event) {
+  if(event.target.files.length > 0) {
+    let file = this.url;
+    console.log(file)
+
+  }
+}
+prepareSave(): any {
+  let input = new FormData();
+  // input.append('name', this.addItemForm.value.name);
+  // input.append('description', this.addItemForm.value.description);
+  // input.append('price', this.addItemForm.value.price);
+  // input.append('category_id', this.addItemForm.value.category);
+  input.append('image', this.url);
+  return input;
+}
+fileChange(event) {
+  let fileList: FileList = event.target.files;
+  if(fileList.length > 0) {
+      this.file22 = fileList[0];
+      // this.formData.append('image', file);
+  }
 }
 
 }

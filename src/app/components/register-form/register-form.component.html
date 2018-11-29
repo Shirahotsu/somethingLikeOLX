@@ -17,7 +17,22 @@
             <div *ngIf="f.password.errors.required">Podaj Haslo</div>
             <div *ngIf="f.password.errors.minlength">Hasło musi zawierać minimum 8 znaków</div>
         </div>
-        <input name="password"  type="password" id="registerPassword" [ngClass]="{ 'isInvalid': submitted && f.password.errors }" formControlName="password" class="form-control mb-4" placeholder="Hasło">
+        <input (keyup)="checkPasswordStrength($event)" name="password"  type="password" id="registerPassword" [ngClass]="{ 'isInvalid': submitted && f.password.errors }" formControlName="password" class="form-control mb-1" placeholder="Hasło">
+        <div class="mb-2 passwordBarView">
+          <div [@passswordBar] *ngIf="allStrength >= 1" class="VeryWeekBar passwordBar"></div>
+          <div [@passswordBar] *ngIf="allStrength >= 2" class="weekBar passwordBar"></div>
+          <div [@passswordBar] *ngIf="allStrength >= 3" class="StrongBar passwordBar"></div>
+          <div [@passswordBar] *ngIf="allStrength >= 4" class="VerySrongBar passwordBar"></div>
+        </div>
+        <div [ngClass]="{
+          'veryWeekPswd': allStrength === 1,
+        'weekPswd': allStrength === 2,
+        'strongPswd': allStrength === 3
+          }" *ngIf="4 > allStrength && strength[3] === 1" class="progressInfo mb-4 pl-2">Hasło nie zawiera:
+          <span *ngIf="strength[0] === 0">Wielkich liter,</span>
+          <span *ngIf="strength[1] === 0">Cyfr, </span>
+          <span *ngIf="strength[2] === 0">Znaków </span>
+        </div>
 
         <div *ngIf="submitted && f.password2.errors || submitted && registerForm.value.password2 !== registerForm.value.password" class="invalidRegister red-text font-weight-bold">
             <div *ngIf="registerForm.value.password2 !== registerForm.value.password">Podaj to samo hasło</div>
@@ -56,9 +71,6 @@
           </div>
 
         <button mdbBtn block="true" class="my-4 primaryColor" type="submit">Zarejestruj się</button>
-        <button mdbBtn (click)="dummyFun()" block="true" class="my-4 primaryColor" type="button">TEST</button>
-        <button mdbBtn (click)="dummyFun2()" block="true" class="my-4 primaryColor" type="button">TEST2</button>
-        <button mdbBtn (click)="dummyFun3()" block="true" class="my-4 primaryColor" type="button">TEST3</button>
       </form>
     </div>
       <div class="registerInfoImage primaryColor col-6  offset-lg-0 offset-xl-1 ">
@@ -72,6 +84,12 @@
       </div>
 </div>
 </article>
+
+
+
+
+
+
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">

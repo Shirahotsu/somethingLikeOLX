@@ -147,7 +147,18 @@ img{
 .por{
   position: relative;
 }
-
+.noPd{
+  padding: 0px;
+}
+.trimText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+  height: 1.2em;
+  white-space: nowrap;
+  font-size: 1.2em;
+}
 @media only screen and (max-width: 576px){
   .itemPadding{
     padding: 0 !important;

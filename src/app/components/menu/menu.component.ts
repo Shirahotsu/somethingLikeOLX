@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from '@models/menuItem.model';
 import { CheckFavCatService } from '@services/check-fav-cat.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms';
 import { LogginSessionService } from '@services/loggin-session.service';
 
 
@@ -15,6 +15,8 @@ import {
   query,
   stagger
 } from "@angular/animations";
+import { InfoModalComponent } from '@components/info-modal/info-modal.component';
+import { InfoModalService } from '@services/info-modal.service';
 
 @Component({
   selector: 'app-menu',
@@ -45,24 +47,24 @@ export class MenuComponent implements OnInit {
   searchForm = new FormGroup({
     search: new FormControl('')
   });
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+  loginForm = this.fb.group({
+    password:   ['', Validators.required],
+    email:      ['', Validators.required],
   });
 
-  public menuItem: MenuItem[];
-  public isMenuOpened: boolean;
-  public menuState: string;
-  public menuBtnsState: string;
-  public wideBtns: boolean;
-  public searchBtn2: boolean;
-  public isMenuAnimationActive: boolean;
-  public state: string;
-  public isLogingIn:boolean;
-  public model= "";
-  public secondKey:number;
-  isLogged:boolean;
-  public  arrayOfStrings:string[] = [
+  menuItem: MenuItem[];
+  isMenuOpened: boolean;
+  menuState: string;
+  menuBtnsState: string;
+  wideBtns: boolean;
+  searchBtn2: boolean;
+  isMenuAnimationActive: boolean;
+  state: string;
+  isLogingIn:boolean;
+  model= "";
+  secondKey:number;
+  d:boolean;
+  arrayOfStrings:string[] = [
     "this",
     "is",
     "array",
@@ -74,8 +76,13 @@ export class MenuComponent implements OnInit {
     "and long",
     "list"
   ];
-  public howManyCat: number;
-  public isThereFavCat: boolean;
+  howManyCat: number;
+  isThereFavCat: boolean;
+  isPassword:boolean = false;
+  isEmail:boolean = false;
+  isLogged;
+  submitted:boolean = false;
+  loginMessage:string = ' ';
 
 
 
@@ -83,8 +90,10 @@ export class MenuComponent implements OnInit {
 
 
   constructor(
+    private fb: FormBuilder,
     private checkFavCat:CheckFavCatService,
-    private logginSession: LogginSessionService
+    private logginSession: LogginSessionService,
+    private infoModal:InfoModalService
     )
     {
     this.logginSession.isLoggedIn.subscribe(
@@ -128,6 +137,7 @@ export class MenuComponent implements OnInit {
     this.checkFavCatBtn();
     setInterval(()=> this.logginSession.checkIfCurrentLogged(), 1200000)
   }
+
   checkIfUserIsLogged(){
   }
   checkFavCatBtn(){
@@ -158,14 +168,64 @@ export class MenuComponent implements OnInit {
     if(this.secondKey === 2){
     }
   }
-  showLoginForm(){
-    this.isLogingIn = true
+  toggleLoginForm(){
+    this.isLogingIn = !this.isLogingIn
   }
-  hideLoginForm (){
+  hideLoginForm(){
     this.isLogingIn = false
 
   }
+  // test
+  getData(){
+    this.logginSession.getAllCat();
+  }
   logoutUser(){
     this.logginSession.loggOutUser();
+  }
+  onSubmit(){
+    if(this.checkIfLoginNotEmpty()){
+      this.logginSession.sendloginReq(this.loginForm.value.email, this.loginForm.value.password).subscribe(res=>this.checkIfErrorInResponse(res));
+      console.log('submit')
+    }
+    else{
+      this.submitted = true;
+      this.pleaseComplateAllFieldsMessage('Wypełnij wszystkie pola')
+    }
+  }
+  checkIfErrorInResponse(e){
+    if(e[0] == "Podaj prawidłowy email lub hasło"){
+      this.pleaseComplateAllFieldsMessage('Podaj prawidłowy Email lub hasło');
+    }
+    else if(e[0] == 'GIT'){
+      console.log('eh');
+      this.logginSession.logInUserLocal(e[1]);
+      this.hideLoginForm();
+    }
+    else{
+      this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+    }
+  }
+  pleaseComplateAllFieldsMessage(e){
+    this.loginMessage = e;
+  }
+  checkEmail(e){
+    let val = e.target.value;
+    if(val !== ''){
+      this.isEmail = true;
+    }
+    else this.isEmail = false;
+  }
+  checkPassword(e){
+    let val = e.target.value;
+    if(val !== ''){
+      this.isPassword = true;
+    }
+    else this.isPassword = false;
+  }
+  checkIfLoginNotEmpty():boolean{
+    if(this.isEmail && this.isPassword){
+      return true;
+    }
+    else false;
   }
 }

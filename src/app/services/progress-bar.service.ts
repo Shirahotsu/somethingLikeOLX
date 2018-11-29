@@ -15,6 +15,12 @@ export class ProgressBarService {
     this.thingsArray[e] = f;
     this.sumAllThings();
   }
+  resetAllThings(){
+    for(let i = 0; i<5; i++){
+      this.thingsArray[i] = 0;
+    }
+    this.sumAllThings;
+  }
 
   sumAllThings(){
     let allThings:number = this.thingsArray.reduce((a, b) => a + b, 0);

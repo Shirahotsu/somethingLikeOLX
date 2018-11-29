@@ -20,9 +20,10 @@
 
                   <select (change)="checkChoosenCat()" formControlName="category" class="browser-default custom-select mb-5">
                     <option  disabled >Kategorie</option>
-                    <option value="Buty">Buty</option>
-                    <option value="Elektronika">Elektronika</option>
-                    <option value="Sport">Sport</option>
+                    <option value="1">Samochody</option>
+                    <option value="2">Obuwie</option>
+                    <option value="3">AGD/RTV</option>
+                    <option value="4">Zdrowie</option>
                   </select>
                 </div>
 
@@ -57,7 +58,7 @@
             <div class="row">
               <div class="col-4 buttonsView">
                 <div class="file ">
-                  <input type="file" name="file" id="file" (change)="onSelectFile($event)"/>
+                  <input type="file" name="file" id="file" (change)="onSelectFile($event); fileChange($event)"/>
                   <label placement="right" mdbTooltip="Dodaj zdjęcie" for="file"><mdb-icon size="2x" icon="file-image-o"></mdb-icon></label>
                 </div>
                 <div>

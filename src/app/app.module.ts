@@ -30,6 +30,8 @@ import { AddItemProgressBarComponent } from './components/add-item-progress-bar/
 import { ModifyProfileComponent } from './components/modify-profile/modify-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
+import { InfoModalComponent } from './components/info-modal/info-modal.component';
+import { UsersItemsComponent } from './components/users-items/users-items.component';
 
 const routes: Routes = [
   {
@@ -82,6 +84,8 @@ const routes: Routes = [
     ModifyProfileComponent,
     ChangePasswordComponent,
     MyProductsComponent,
+    InfoModalComponent,
+    UsersItemsComponent,
     ],
   imports: [
     BrowserAnimationsModule,

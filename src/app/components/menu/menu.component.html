@@ -21,18 +21,23 @@
       </ng-container>
       <hr>
       <div class="mt-4">
-          <div *ngIf="!isLogged" (click)="showLoginForm()" (clickOutside)="hideLoginForm($event)">
-              <button   placement="right" type="button"  class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="Zaloguj/Zarejestruj">
+          <div *ngIf="!isLogged" (clickOutside)="hideLoginForm($event)">
+              <button (click)="toggleLoginForm()" placement="right" type="button"  class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="Zaloguj/Zarejestruj">
                 <mdb-icon class="whiteColorText accentColorTextHover" size="2x" icon="sign-in" aria-hidden="true"></mdb-icon>
               </button>
               <ng-container *ngIf="isLogingIn">
                   <div  class="loginForm white p-4 z-depth-2">
-                      <form [formGroup]="loginForm" action="" class="logSingForm">
-                          <input  type="text" id="lForm1" formControlName="email" class="form-control" placeholder="Email">
-                          <input  type="text" id="lForm2" formControlName="password" class="form-control" placeholder="Hasło">
+                      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  action="" class="logSingForm">
+                          <div *ngIf="submitted" class="invalidRegister red-text font-weight-bold">
+                              <div *ngIf="submitted">{{loginMessage}}</div>
+                          </div>
+                          <input (keyup)='checkEmail($event)' type="enail" id="lForm1" formControlName="email" class="form-control" placeholder="Email">
+                          <input (keyup)='checkPassword($event)' type="password" id="lForm2" formControlName="password" class="form-control" placeholder="Hasło">
+
+                          <button type="submit" mdbWavesEffect block="true" mdbBtn class="primaryColor   waves-light">Zaloguj się</button>
+
+                          <button type="button" (click)='hideLoginForm()' routerLink="/rejestracja"  mdbWavesEffect block="true" mdbBtn class="primaryColor  waves-light mt-4">Zarejestruj się</button>
                       </form>
-                      <button type="submit" color="amber"  mdbWavesEffect block="true" mdbBtn class="waves-light">Zaloguj się</button>
-                      <button type="submit" color="yellow" (click)='hideLoginForm()' routerLink="/rejestracja"  mdbWavesEffect block="true" mdbBtn class="waves-light mt-4">Zarejestruj się</button>
                   </div>
                 </ng-container>
               </div>
@@ -46,6 +51,8 @@
           <button (click)="basicModal.show()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
             <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
           </button>
+           <!-- test -->
+           <button (click)="getData()" type="button" mdbWavesEffect block="true" mdbBtn class="primaryColor mt-4  waves-light">Test2</button>
           <!-- <button (click)="logoutUser()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
             <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
           </button> -->
@@ -53,7 +60,6 @@
       </div>
   </div>
 </nav>
-
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">

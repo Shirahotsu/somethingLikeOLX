@@ -1,0 +1,14 @@
+.infoModal{
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+
+}
+.btnsView{
+  display: flex;
+  justify-content: space-around;
+}
+.modal-body{
+  font-size: 1.5em;
+  text-align: center;
+}
