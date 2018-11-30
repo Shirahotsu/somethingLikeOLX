@@ -1,16 +1,6 @@
-<article class="p-md-5 myProfileView">
-    <div class="formView col-xl-6 col-lg-8 col-md-10 col-12">
-        <div class="col-12 btn-group pt-4" role="group" aria-label="Basic example">
-            <span class="col-4 primaryColorText" (click)="activeBtn(0)" [ngClass]="{'activeBtn': activeLink[0]}" >Produkty</span>
-            <span class="col-4 primaryColorText" (click)="activeBtn(1)" [ngClass]="{'activeBtn': activeLink[1]}" >Edytuj</span>
-            <span class="col-4 primaryColorText" (click)="activeBtn(2)" [ngClass]="{'activeBtn': activeLink[2]}" >Hasło</span>
-        </div>
-        <app-my-products class="row" *ngIf="activeLink[0]"> ee</app-my-products>
-      <app-modify-profile class="row" *ngIf="activeLink[1]"></app-modify-profile>
 
-      <app-change-password class="row" *ngIf="activeLink[2]"> ee</app-change-password>
-    </div>
-
-
-
-</article>
+  <div class="col-12 btn-group pt-4" role="group" aria-label="Basic example">
+    <span class="col-4 primaryColorText" routerLink="/moje-produkty" (click)="activeBtn(0)" [ngClass]="{'activeBtn': activeLink[0]}" >Produkty</span>
+    <span class="col-4 primaryColorText" routerLink="/edytuj-profil" (click)="activeBtn(1)" [ngClass]="{'activeBtn': activeLink[1]}" >Edytuj</span>
+    <span class="col-4 primaryColorText" routerLink="/zmien-haslo" (click)="activeBtn(2)" [ngClass]="{'activeBtn': activeLink[2]}" >Hasło</span>
+  </div>

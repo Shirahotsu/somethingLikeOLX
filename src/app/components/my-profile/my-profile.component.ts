@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -26,12 +27,16 @@ export class MyProfileComponent implements OnInit {
   });
   public isProfil:boolean;
   public submitted:boolean = false;
-  activeLink:boolean[] = [false,true, false];
-  constructor(private fb: FormBuilder) {
+  activeLink:boolean[] = [false,false, false];
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute
+    ) {
     this.isProfil = true;
   }
 
   ngOnInit() {
+    this.getRouterName();
   }
   get f() { return this.profileForm.controls; }
 
@@ -59,5 +64,22 @@ export class MyProfileComponent implements OnInit {
     for(let i = 0; i<3;i++){
       this.activeLink[i] = false;
     }
+  }
+  getRouterName(){
+    this.route.url.subscribe(
+      res => this.checkRouterName(res[0].path)
+    )
+  }
+  checkRouterName(e){
+    if(e === 'moje-produkty'){
+      this.activeBtn(0);
+    }
+    else if(e === 'edytuj-profil'){
+      this.activeBtn(1);
+    }
+    else if(e === 'zmien-haslo'){
+      this.activeBtn(2);
+    }
+
   }
 }

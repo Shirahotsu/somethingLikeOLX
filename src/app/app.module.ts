@@ -56,11 +56,19 @@ const routes: Routes = [
     component: RegisterFormComponent
   },
   {
-    path: "profil",
-    component: MyProfileComponent
+    path: "edytuj-profil",
+    component: ModifyProfileComponent
   },
   {
-    path: "dodaj-przedmiot",
+    path: "zmien-haslo",
+    component: ChangePasswordComponent
+  },
+  {
+    path: "moje-produkty",
+    component: MyProductsComponent
+  },
+  {
+    path: "dodaj-produkt",
     component: AddItemComponent
   },
   { path: '**', component: PageNotFoundComponent }

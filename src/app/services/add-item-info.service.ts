@@ -42,8 +42,7 @@ export class AddItemInfoService {
   sendItem(e){
     return this.http.post(this.url, e, this.httpOptions)
     .pipe(map(
-      res => {return res},
-      error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+      res => {return res}
       ));
   }
 

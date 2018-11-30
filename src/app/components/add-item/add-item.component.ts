@@ -78,7 +78,7 @@ export class AddItemComponent implements OnInit {
         name:  this.addItemForm.value.name,
         description:  this.addItemForm.value.description,
         price:  this.addItemForm.value.price,
-        category_id:  this.addItemForm.value.category
+        categoryId:  this.addItemForm.value.category
       }
     }
     console.log(JSON.stringify(formDataInfo.product));
@@ -87,18 +87,17 @@ export class AddItemComponent implements OnInit {
     this.addItem.sendItem(this.formData).subscribe(
       res => {
         if(res[0] === "GIT"){
-          this.router.navigate(['/profil']);
+          this.router.navigate(['/moje-produkty']);
         }
         else if(res[0] === "BLAD"){
           this.infoModal.setAndShowModal(res[1]);
         }
         else{
-          return;
+          this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
         }
-      }
+      },
+      error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
     );
-
-    // this.addItem.sendItemInfo(this.addItemForm.value);
   }
 
   checkIfName(e){
