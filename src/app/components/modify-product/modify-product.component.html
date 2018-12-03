@@ -1,0 +1,24 @@
+<article class="p-md-5 myProfileView">
+    <div class="formView col-xl-6 col-lg-8 col-md-10 col-12">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="p-5 ">
+      <h1>Edytuj produkt</h1>
+        <div class="row">
+          <div class="col-12 mb-4">
+            <input name="itemName" type="text" class="form-control mb-4" placeholder="Nazwa"formControlName="name">
+          </div>
+
+          <div class="col-12 mb-4">
+            <input name="price" type="number" class="form-control mb-4" placeholder="Cena"formControlName="price">
+          </div>
+
+          <div class="md-form textarea col-12">
+            <textarea  type="text" id="itemDescription" class="md-textarea form-control mb-5" mdbInputDirective formControlName="description"></textarea>
+            <label class="descLabel" for="itemDescription">Opis</label>
+          </div>
+        </div>
+        <div class="buttonsView">
+          <button mdbBtn block="true" class="my-4 col-6 offset-3 accentColor" type="submit">Zapisz zmiany</button>
+        </div>
+      </form>
+</div>
+</article>

@@ -32,6 +32,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { UsersItemsComponent } from './components/users-items/users-items.component';
+import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
     path: "dodaj-produkt",
     component: AddItemComponent
   },
+  {
+    path: "edytuj-produkt/:id",
+    component: ModifyProductComponent
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -94,6 +99,7 @@ const routes: Routes = [
     MyProductsComponent,
     InfoModalComponent,
     UsersItemsComponent,
+    ModifyProductComponent,
     ],
   imports: [
     BrowserAnimationsModule,

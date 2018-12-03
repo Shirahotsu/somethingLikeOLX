@@ -5,9 +5,11 @@
 }
 .item-buttons button{
   font-size: 1.1em;
+  height: 100%;
 }
 .item-price{
   font-size: 3.3em;
+
 }
 .profile{
   display: flex;
@@ -32,9 +34,16 @@
 .itemTitle, .itemInfo{
   padding-left: 13px;
 }
-.itemImageE{
-    margin-top: 20px;
-}
 .itemInfo{
   font-size: 1.3em;
+}
+button{
+  margin: 0;
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 1199px){
+  .hideOnMed{
+    display: none !important;
+  }
+
 }

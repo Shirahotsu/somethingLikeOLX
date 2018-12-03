@@ -1,23 +1,27 @@
 <article class="">
-<div class="itemsGallery">
-  <div class="catImg">
-    <img src="{{dummyData2}}" alt="nameCat" class="img-fluid">
-  </div>
-  <div class="white itemPadding px-5 py-5">
-    <div class="itemsShocase row">
-      <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor="let item of dummyData"  class="itemsView col-xl-2 col-lg-3 col-md-4 offset-md-0 col-sm-10 offset-sm-1 col-12 offset-0 px-4">
-        <div class="itmesInner">
-          <div class="itemImage">
-            <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+  <div class="itemsGallery">
+    <div class="catImg">
+      <img src="{{dummyData2}}" alt="nameCat" class="img-fluid">
+    </div>
+    <div class="white itemPadding px-5 py-5">
+      <div class="itemsShocase row">
+        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor="let item of dummyData" class="itemsView">
+          <div class="itmesInner">
+            <div class="itemImage">
+              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+            </div>
+            <div class="itemInfo">
+              <div class="itemName trimText">{{item.name}}</div>
+              <div class="itemPrice">{{item.price}}zł</div>
+            </div>
           </div>
-          <div class="itemPrice">{{item.price}}zł</div>
-          <div class="itemName">{{item.name}}</div>
-
         </div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
       </div>
       <figure (click)="getData()" class="moreItemsBtn">Więcej...</figure>
     </div>
   </div>
-</div>
-
 </article>

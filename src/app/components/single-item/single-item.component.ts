@@ -52,13 +52,6 @@ export class SingleItemComponent implements OnInit {
         name: 'kuchenka',
         id:4,
         cat: "agd rtv",
-      },
-      {
-        price: 1511100,
-        image: '../../assets/zd2.jpg',
-        name: 'mikrofalówka',
-        id:5,
-        cat: "agd rtv",
       }
     ];
   }

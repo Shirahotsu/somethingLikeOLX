@@ -1,61 +1,57 @@
 <article class="">
   <div class="white p-5">
     <div class="row">
-      <div class="col-5 offset-2">
-        <img src="{{product.image}}" class="img-fluid itemImageE" alt="">
+      <div class="col-xl-9 col-12">
+        <img src="{{product.image}}" class="img-fluid" alt="">
       </div>
-      <div class="col-3 offset-1">
-        <div class="row"><span class="item-price">{{product.price}} zł</span></div>
-        <div class="row item-buttons">
-
-          <button mdbBtn disabled type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              {{product.author}}</button>
-          <button mdbBtn disabled type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
-            {{product.city}}
-          </button>
-
-              <app-users-items class="col-12 noPd"></app-users-items>
-
-          <button mdbBtn type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
-            Wyślij wiadomość</button>
-
-          <!-- <button mdbBtn type="button"  class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              Dodaj do koszyka</button> -->
-
-
-
+      <div class="col-3 hideOnMed">
+        <!-- <div class="row"><span class="item-price">{{product.price}} zł</span></div> -->
+        <div class=" item-buttons">
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
+              mdbWavesEffect> {{product.price}} zł</button>
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
+              mdbWavesEffect> {{product.author}}</button>
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
+              mdbWavesEffect> {{product.city}} </button>
+            <app-users-items class="col-12 noPd"></app-users-items>
+            <button mdbBtn type="button" class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
+              Wyślij wiadomość</button>
         </div>
         <div class="col-1"></div>
       </div>
+
       <div class="row col-12">
-        <div class="col-12 pt-5"><header class="itemTitle">{{product.name}}</header></div>
+        <div class="col-12 pt-5">
+          <header class="itemTitle">{{product.name}}</header>
+        </div>
       </div>
       <div class="row">
         <div class="col-12 pt-3">
-          <p class="itemInfo">
-            {{product.content}}
-          </p>
+          <p class="itemInfo"> {{product.content}} </p>
         </div>
       </div>
     </div>
   </div>
+
+
   <div class="white px-5 py-5">
     <header>Proponowane produkty:</header>
     <div class="itemsGallery">
-        <div class="itemsShocase row">
-
-            <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU' class="itemsView  col-xl-3 col-lg-4 col-md-6 offset-md-0 col-sm-8 offset-sm-2 col-xs-12">
-              <div class="itmesInner">
-                <div class="itemImage">
-                  <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
-                </div>
-                <div class="itemPrice">{{item.price}}zł</div>
-                <div class="itemName">{{item.name}}</div>
-
-
-              </div>
+      <div class="itemsShocase row">
+        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU' class="itemsView">
+          <div class="itmesInner">
+            <div class="itemImage">
+              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
             </div>
+            <div class="trimText itemName">{{item.name}}</div>
+            <div class="itemPrice">{{item.price}}zł</div>
           </div>
+        </div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
       </div>
+    </div>
   </div>
 </article>

@@ -83,23 +83,37 @@ header{
   font-size: 3em;
 }
 .itemsShocase{
-  // display: flex;
-  // align-items: center;
-  // flex-wrap: wrap;
-  // justify-content: space-around;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
   background-color: #fff;
-  padding: 15px 15px
+  padding: 15px 15px;
 }
 .itemsView{
   padding: 10px 10px;
   width: 300px;
-  height: 400px;
+  height: 300px;
 }
+.blindDiv{
+  padding: 0px 10px;
+  width: 300px;
+  height: 1px;
+}
+@media only screen and (max-width: 783px){
+  .itemsView{
+    width: 400px;
+    height: 400px;
+  }
+}
+// @media only screen and (max-width: 783px){
+//   .itemsView{
+//     width: 100%;
+//     height: 300px;
+//   }
+// }
 .itmesInner{
   height: 100%;
-  border: #ddcecd 1px solid;
-  border-radius: 5px;
-
 }
 .itmesInner:hover{
   color: $color1;
@@ -107,7 +121,7 @@ header{
 }
 .itemImage{
   width: 100%;
-  height: 80%;
+  height: 55%;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -115,10 +129,18 @@ header{
 }
 .itemImage img{
 }
-
+.itemInfo{
+  height: 45%;
+  padding-top: 8px;
+}
+.itemName{
+  // height: 50%;
+  margin-bottom: 10px;
+}
 .itemPrice{
   font-size: 1.5em;
   font-weight: bold;
+  text-align: center;
 }
 
 .itemsShocaseHeader{
@@ -132,9 +154,10 @@ header{
 .moreItemsBtn{
   padding: 20px;
   font-size: 2em;
+  text-align: center;
 }
 .moreItemsBtn:hover{
-  color: $color1;
+  color: $color2;
   cursor: pointer;
 }
 img{
@@ -156,9 +179,7 @@ img{
   overflow: hidden;
   width: 100%;
   text-align: left;
-  height: 1.2em;
   white-space: nowrap;
-  font-size: 1.2em;
 }
 @media only screen and (max-width: 576px){
   .itemPadding{
