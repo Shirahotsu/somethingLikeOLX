@@ -46,7 +46,6 @@ export class LogginSessionService {
     return this.http.post<any>(this.url1, {email:e, password:p
     }, httpOptions).pipe(map(
       res => {return res},
-      error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
       ));
   }
 

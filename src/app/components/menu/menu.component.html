@@ -1,3 +1,6 @@
+<button type="button" mdbBtn color="primary" class="relative waves-light hamburgerBtn search-button" (click)="mobileMenu.show()" mdbWavesEffect>
+  <mdb-icon size="2x" icon="navicon"></mdb-icon>
+</button>
 <nav class="primaryColor desktopNav">
   <div class="por menu-buttons-view">
     <button id="xdelo" [@searchPanel]='state' (click)='changState()' (clickOutside)="onClickedOutside($event)" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
@@ -15,8 +18,8 @@
       <mdb-icon size="2x" icon="star" aria-hidden="true"></mdb-icon>
     </button>
       <ng-container *ngFor='let mItem of menuItem'>
-        <button  routerLink="/category/{{mItem.cat}}" placement="right" *ngIf="mItem.visible" type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="{{mItem.cat}}">
-          <mdb-icon size="2x" icon="{{mItem.icon}}"></mdb-icon>
+        <button  routerLink="/kategoria/{{mItem.category_name}}" placement="right"  type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="{{mItem.category_name}}">
+          <mdb-icon size="2x" icon="anchor"></mdb-icon>
         </button>
       </ng-container>
       <hr>
@@ -51,15 +54,70 @@
           <button (click)="basicModal.show()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
             <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
           </button>
-           <!-- test -->
-           <button (click)="getData()" type="button" mdbWavesEffect block="true" mdbBtn class="primaryColor mt-4  waves-light">Test2</button>
-          <!-- <button (click)="logoutUser()" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover"  mdbTooltip="Wyloguj">
-            <mdb-icon size="2x" icon="sign-out" aria-hidden="true"></mdb-icon>
-          </button> -->
         </ng-container>
       </div>
   </div>
 </nav>
+
+
+
+
+
+<div mdbModal #mobileMenu="mdbModal" class="modal fade left" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-full-height modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header px-0 py-1">
+
+        <form [formGroup]="searchForm" action="" class="col-12 p-1">
+          <input placeholder="Wyszukaj" formControlName="search"  type="text" id="form1" class="form-control col-12" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
+        </form>
+      </div>
+      <div class="modal-body row">
+
+        <ul class="mt-3 pl-3">
+          <li (click)="checkFavCatBtn(); mobileMenu.hide()" routerLink="/" class="cp col-12">
+            <mdb-icon size="1x" icon="home" aria-hidden="true"></mdb-icon>Strona główna
+          </li>
+          <li (click)="mobileMenu.hide()" *ngIf="isThereFavCat" routerLink="/najnowsze" class="cp col-12">
+            Najnowsze
+          </li>
+          <hr>
+
+          <ng-container *ngFor='let mItem of menuItem'>
+            <li  routerLink="/kategoria/{{mItem.category_name}}" class="cp col-12">
+              <mdb-icon size="1x" icon="anchor"></mdb-icon>{{mItem.category_name}}
+            </li>
+          </ng-container>
+
+          <hr>
+
+          <ng-container  *ngIf="!isLogged">
+            <li (click)="toggleMobileLoginForm(); mobileMenu.hide()" class="cp col-12">
+              <mdb-icon size="1x" icon="sign-in" aria-hidden="true" ></mdb-icon>Zaloguj się
+            </li>
+          </ng-container >
+        <ng-container *ngIf="isLogged">
+          <li (click)="mobileMenu.hide()" routerLink="/dodaj-produkt" class="cp col-12">
+            <mdb-icon size="1x" icon="plus" aria-hidden="true"></mdb-icon>Dodaj produkt
+          </li>
+          <li (click)="mobileMenu.hide()" routerLink="/edytuj-profil" class="cp col-12">
+            <mdb-icon size="1x" icon="user-circle" aria-hidden="true"></mdb-icon>Mój profil
+          </li>
+          <li (click)="mobileMenu.hide()" (click)="basicModal.show()" class="cp col-12">
+            <mdb-icon size="1x" icon="sign-out" aria-hidden="true"></mdb-icon>Wyloguj się
+          </li>
+        </ng-container>
+      </ul>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -76,4 +134,22 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="isMLogingIn">
+      <div  class="loginFormM white p-4 z-depth-2">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  action="" class="logSingForm">
+              <div *ngIf="submitted" class="invalidRegister red-text font-weight-bold">
+                  <div *ngIf="submitted">{{loginMessage}}</div>
+              </div>
+              <input (keyup)='checkEmail($event)' type="enail" id="lForm1" formControlName="email" class="form-control mb-3" placeholder="Email">
+              <input (keyup)='checkPassword($event)' type="password" id="lForm2" formControlName="password" class="form-control mb-5" placeholder="Hasło">
+
+              <button type="submit" mdbWavesEffect block="true" mdbBtn class="primaryColor waves-light">Zaloguj się</button>
+
+              <button type="button" (click)='hideMobileLoginForm()' routerLink="/rejestracja"  mdbWavesEffect block="true" mdbBtn class="primaryColor  waves-light mt-3">Zarejestruj się</button>
+
+              <button type="button" (click)='hideMobileLoginForm()' mdbWavesEffect block="true" mdbBtn color="primary" class="waves-light mt-3">Anuluj</button>
+          </form>
+      </div>
   </div>

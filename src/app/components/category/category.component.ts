@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetDataService } from '@services/get-data.service';
+import { CategoryProductsService } from '@services/category-products.service';
+import { CategoryService } from '@services/category.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  private sub: any;
-  public nameCat: string;
-  public dummyData:any;
-  public dummyData2:any;
-  public moreProducts: number;
+  shownItems:number = 3;
+  nameCat: string;
+  products: any;
+  dummyData2:any;
+  moreProducts: number = 0;
+  catId:number
+
   constructor(
     private route: ActivatedRoute,
-    private jsonData: GetDataService,
-    private router: Router
+    private router: Router,
+    private categoryProducts: CategoryProductsService,
+    private cat: CategoryService
     ) {
 
       this.router.routeReuseStrategy.shouldReuseRoute = function() {
@@ -24,12 +28,9 @@ export class CategoryComponent implements OnInit {
       this.moreProducts = 0;
       this.dummyData2 = "../../assets/Baner - elektronika.jpg";
 
-      this.sub = this.route.params.subscribe(params => {
-        this.nameCat = params['name']; // (+) converts string 'id' to a number
-        console.log(this.nameCat);
-        // In a real app: dispatch action to load the details here.
-      });
+      this.getParams();
       this.getData();
+      // this.getProductsNumber();
   }
 
   ngOnInit() {
@@ -37,15 +38,29 @@ export class CategoryComponent implements OnInit {
 
 
   }
-  // TODO zrobić by pobierało przez http x produktów
-  getData(){
-    this.moreProducts += 3;
-    this.jsonData.getLocalData().subscribe(data => {
-      this.dummyData = data.filter(item => {
-        return item.cat === this.nameCat;
-      });
-    })
+
+  getParams(){
+    this.route.params.subscribe(
+      params => this.nameCat = params['name']
+    );
+    this.catId = this.cat.getCatIdFromName(this.nameCat);
   }
+
+  getData(){
+    this.moreProducts += this.shownItems;
+    this.categoryProducts.getProducts(this.catId, this.moreProducts).subscribe(
+      res => this.products = res,
+      err => console.log(err),
+      ()=>console.log(this.products)
+    )
+  }
+
+  // getProductsNumber(){
+  //   this.categoryProducts.getProductsNumber(this.nameCat).subscribe(
+  //     res=>console.log(res)
+
+  //   )
+  // }
 
 
 }

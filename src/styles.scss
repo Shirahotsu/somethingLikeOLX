@@ -4,6 +4,13 @@ $color2: #28afb0;
 $color3: #255c99;
 $color4: #ddcecd;
 $color5: #eee5e5;
+:root{
+  --dark: $color1;
+  --accent: $color2;
+  --primary: $color3;
+  --grey: $color4;
+  --white: $color6;
+}
 body{
   color: $color1;
   background-color: #ffffff;

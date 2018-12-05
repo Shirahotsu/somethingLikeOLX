@@ -1,3 +1,27 @@
-<p>
-  newest works!
-</p>
+<article class="">
+  <div class="itemsGallery noPd">
+    <div class="catImg">
+      <img src="../../../assets/forUBanner.jpg" alt="nameCat" class="img-fluid">
+    </div>
+    <div class="white itemPadding px-5 py-5">
+      <div class="itemsShocase row">
+        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products" class="itemsView">
+          <div class="itmesInner">
+            <div class="itemImage">
+              <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
+            </div>
+            <div class="itemInfo">
+              <div class="itemName trimText">{{item.name}}</div>
+              <div class="itemPrice">{{item.price}}zł</div>
+            </div>
+          </div>
+        </div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+        <div class="blindDiv"></div>
+      </div>
+      <figure (click)="getNewestProducts()" class="moreItemsBtn">Więcej...</figure>
+    </div>
+  </div>
+</article>

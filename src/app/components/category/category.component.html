@@ -5,10 +5,10 @@
     </div>
     <div class="white itemPadding px-5 py-5">
       <div class="itemsShocase row">
-        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor="let item of dummyData" class="itemsView">
+        <div appFavCat appInCat="{{item.categoryId}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products" class="itemsView">
           <div class="itmesInner">
             <div class="itemImage">
-              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+              <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
             </div>
             <div class="itemInfo">
               <div class="itemName trimText">{{item.name}}</div>

@@ -33,6 +33,7 @@ import { MyProductsComponent } from './components/my-products/my-products.compon
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { UsersItemsComponent } from './components/users-items/users-items.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
+import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
   },
   //TODO child router
   {
-    path: "category/:name",
+    path: "kategoria/:name",
     component: CategoryComponent
   },
   {
@@ -100,6 +101,7 @@ const routes: Routes = [
     InfoModalComponent,
     UsersItemsComponent,
     ModifyProductComponent,
+    MobileMenuComponent,
     ],
   imports: [
     BrowserAnimationsModule,

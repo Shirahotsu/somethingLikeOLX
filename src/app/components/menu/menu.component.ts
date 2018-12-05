@@ -15,8 +15,9 @@ import {
   query,
   stagger
 } from "@angular/animations";
-import { InfoModalComponent } from '@components/info-modal/info-modal.component';
 import { InfoModalService } from '@services/info-modal.service';
+import { CategoryService } from '@services/category.service';
+
 
 @Component({
   selector: 'app-menu',
@@ -52,7 +53,7 @@ export class MenuComponent implements OnInit {
     email:      ['', Validators.required],
   });
 
-  menuItem: MenuItem[];
+  menuItem: any;
   isMenuOpened: boolean;
   menuState: string;
   menuBtnsState: string;
@@ -61,6 +62,7 @@ export class MenuComponent implements OnInit {
   isMenuAnimationActive: boolean;
   state: string;
   isLogingIn:boolean;
+  isMLogingIn:boolean = false;
   model= "";
   secondKey:number;
   d:boolean;
@@ -93,7 +95,8 @@ export class MenuComponent implements OnInit {
     private fb: FormBuilder,
     private checkFavCat:CheckFavCatService,
     private logginSession: LogginSessionService,
-    private infoModal:InfoModalService
+    private infoModal:InfoModalService,
+    private cat: CategoryService
     )
     {
     this.logginSession.isLoggedIn.subscribe(
@@ -101,6 +104,7 @@ export class MenuComponent implements OnInit {
       console.log(res)
       }
     )
+    this.getAllCategories();
     this.logginSession.setIsLoggedIn();
     this.state = 'inactive';
     this.searchBtn2 = false;
@@ -111,31 +115,38 @@ export class MenuComponent implements OnInit {
     this.isMenuAnimationActive = false;
     this.secondKey = 0;
     this.isLogingIn = false;
-    this.menuItem = [
-    {
-      icon: 'anchor',
-      link: '/link',
-      visible: true,
-      cat: 'obuwie'
-    },
-    {
-      icon: 'battery',
-      link: '/link',
-      visible: true,
-      cat: 'agd rtv'
-    },
-    {
-      icon: 'bank',
-      link: '/link',
-      visible: true,
-      cat: 'samochody'
-    }
-  ]
+  //   this.menuItem = [
+  //   {
+  //     icon: 'anchor',
+  //     link: '/link',
+  //     visible: true,
+  //     cat: 'AGD_RTV'
+  //   },
+  //   {
+  //     icon: 'battery',
+  //     link: '/link',
+  //     visible: true,
+  //     cat: 'Obuwie'
+  //   },
+  //   {
+  //     icon: 'bank',
+  //     link: '/link',
+  //     visible: true,
+  //     cat: 'Samochody'
+  //   },
+  //   {
+  //     icon: 'battery',
+  //     link: '/link',
+  //     visible: true,
+  //     cat: 'Zdrowie'
+  //   }
+  // ]
   }
 
   ngOnInit() {
     this.checkFavCatBtn();
-    setInterval(()=> this.logginSession.checkIfCurrentLogged(), 1200000)
+    setInterval(()=> this.logginSession.checkIfCurrentLogged(), 1200000);
+
   }
 
   checkIfUserIsLogged(){
@@ -169,27 +180,32 @@ export class MenuComponent implements OnInit {
     }
   }
   toggleLoginForm(){
-    this.isLogingIn = !this.isLogingIn
+    this.isLogingIn = !this.isLogingIn;
+  }
+  toggleMobileLoginForm(){
+    this.isMLogingIn = !this.isMLogingIn;
   }
   hideLoginForm(){
     this.isLogingIn = false
-
   }
-  // test
-  getData(){
-    this.logginSession.getAllCat();
+  hideMobileLoginForm(){
+    this.isMLogingIn = false
   }
   logoutUser(){
     this.logginSession.loggOutUser();
   }
   onSubmit(){
     if(this.checkIfLoginNotEmpty()){
-      this.logginSession.sendloginReq(this.loginForm.value.email, this.loginForm.value.password).subscribe(res=>this.checkIfErrorInResponse(res));
+      this.logginSession.sendloginReq(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+        res=>this.checkIfErrorInResponse(res),
+        error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+        );
       console.log('submit')
     }
     else{
       this.submitted = true;
-      this.pleaseComplateAllFieldsMessage('Wypełnij wszystkie pola')
+      this.pleaseComplateAllFieldsMessage('Wypełnij wszystkie pola');
+      return false;
     }
   }
   checkIfErrorInResponse(e){
@@ -200,6 +216,7 @@ export class MenuComponent implements OnInit {
       console.log('eh');
       this.logginSession.logInUserLocal(e[1]);
       this.hideLoginForm();
+      this.hideMobileLoginForm();
     }
     else{
       this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
@@ -228,4 +245,16 @@ export class MenuComponent implements OnInit {
     }
     else false;
   }
+
+  getAllCategories(){
+    this.cat.getAllCategories().subscribe(
+      res=> {
+        this.menuItem = res;
+        console.log(this.menuItem);
+
+      }
+    );
+  }
+
+
 }
