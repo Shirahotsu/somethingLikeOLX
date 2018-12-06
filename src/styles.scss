@@ -15,6 +15,7 @@ body{
   color: $color1;
   background-color: #ffffff;
   overflow-x: hidden;
+  font-size: 16px;
 }
 .primaryColor{
 background-color: $color3;
@@ -89,36 +90,50 @@ color: $color2;
 header{
   font-size: 3em;
 }
-.itemsShocase{
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background-color: #fff;
-  padding: 15px 15px;
-}
+// .itemsShocase{
+//   display: flex;
+//   align-items: center;
+//   flex-wrap: wrap;
+//   justify-content: space-around;
+//   background-color: #fff;
+//   padding: 15px 15px;
+// }
 .itemsView{
-  padding: 10px 10px;
-  width: 300px;
-  height: 300px;
+  // padding: 10px 10px;
+  // width: 300px;
+  height: 280px;
+  border-bottom: #ebebeb solid 1px;
 }
 .blindDiv{
   padding: 0px 10px;
-  width: 300px;
+  width: 400px;
   height: 1px;
-}
-@media only screen and (max-width: 783px){
-  .itemsView{
-    width: 400px;
-    height: 400px;
-  }
 }
 // @media only screen and (max-width: 783px){
 //   .itemsView{
-//     width: 100%;
-//     height: 300px;
+//     width: 400px;
+//     height: 400px;
 //   }
 // }
+@media only screen and (max-width: 750px){
+  .itemsView{
+    height: 220px;
+  }
+}
+@media only screen and (max-width: 576px){
+  .itemsView{
+    height: auto;
+  }
+  .itemImage{
+    justify-content: space-around;
+  }
+  .itemDesc{
+    display: none;
+  }
+  .itemInfo{
+    padding-top: 10px;
+  }
+}
 .itmesInner{
   height: 100%;
 }
@@ -127,29 +142,35 @@ header{
   cursor: pointer;
 }
 .itemImage{
-  width: 100%;
-  height: 55%;
+  // width: 100%;
+  // height: 55%;
   overflow: hidden;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 .itemImage img{
 }
 .itemInfo{
-  height: 45%;
-  padding-top: 8px;
+  // height: 100%;
+  // padding-top: 8px;
+}
+.halfDiv{
+  height: 50%;
 }
 .itemName{
   // height: 50%;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
+  font-size: 1.4em;
 }
 .itemPrice{
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
 }
-
+.itemDate{
+  font-size: 0.8em;
+}
 .itemsShocaseHeader{
   font-size: 2em;
   padding-left: 25px;
@@ -181,12 +202,24 @@ img{
 .noPd{
   padding: 0px;
 }
+.row0{
+  margin-right: 0px;
+  margin-left: 0px;
+}
 .trimText {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
   text-align: left;
   white-space: nowrap;
+}
+
+.trimText2 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+  white-space: wrap;
 }
 @media only screen and (max-width: 576px){
   .itemPadding{

@@ -4,24 +4,27 @@
       <img src="../../../assets/forUBanner.jpg" alt="nameCat" class="img-fluid">
     </div>
     <div class="white itemPadding px-5 py-5">
-      <div class="itemsShocase row">
-        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products" class="itemsView">
-          <div class="itmesInner">
-            <div class="itemImage">
+      <div class="itemsShocase row row0">
+        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products" class="itemsView col-xl-10 offset-xl-1 col-md-12 offset-md-0">
+          <div class="itmesInner col-12 row row0 py-3">
+            <div class="itemImage col-lg-4 col-sm-6 col-12">
               <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
             </div>
-            <div class="itemInfo">
-              <div class="itemName trimText">{{item.name}}</div>
-              <div class="itemPrice">{{item.price}}zł</div>
+            <div class="itemInfo col-lg-8 col-sm-6 col-12 row row0">
+              <div class="col-12 halfDiv">
+                <div class="itemPrice col-12 noPd">{{item.price}}zł</div>
+                <div class="itemName trimText col-12 noPd">{{item.name}}</div>
+                <div class="itemDate col-12 noPd">{{item.created}}</div>
+              </div>
+              <div class="col-12 halfDiv trimText2 itemDesc">
+                  {{item.description}}
+              </div>
             </div>
           </div>
         </div>
-        <div class="blindDiv"></div>
-        <div class="blindDiv"></div>
-        <div class="blindDiv"></div>
-        <div class="blindDiv"></div>
       </div>
       <figure (click)="getNewestProducts()" class="moreItemsBtn">Więcej...</figure>
     </div>
   </div>
+
 </article>

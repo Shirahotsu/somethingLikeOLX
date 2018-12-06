@@ -27,7 +27,7 @@ export class CategoryProductsService {
       res => {return res}
     ));
   }
-  getProductsNumber(e:string){
+  getProductsNumber(e:number){
     return this.http.get(`${this.url}/${e}`, this.httpOptions).pipe(map(
       res => {return res}
     ));

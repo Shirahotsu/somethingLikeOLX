@@ -29,8 +29,8 @@ export class CategoryComponent implements OnInit {
       this.dummyData2 = "../../assets/Baner - elektronika.jpg";
 
       this.getParams();
-      this.getData();
-      // this.getProductsNumber();
+      // this.getData();
+
   }
 
   ngOnInit() {
@@ -43,7 +43,14 @@ export class CategoryComponent implements OnInit {
     this.route.params.subscribe(
       params => this.nameCat = params['name']
     );
-    this.catId = this.cat.getCatIdFromName(this.nameCat);
+    this.cat.getCatIdFromName(this.nameCat).subscribe(
+      res => this.catId = res,
+      err =>console.log(err),
+      ()=> {
+        this.getData();
+        this.getProductsNumber();
+      }
+    );
   }
 
   getData(){
@@ -51,16 +58,27 @@ export class CategoryComponent implements OnInit {
     this.categoryProducts.getProducts(this.catId, this.moreProducts).subscribe(
       res => this.products = res,
       err => console.log(err),
-      ()=>console.log(this.products)
+      ()=>{
+        this.trimContent();
+      }
     )
   }
+  trimContent(){
+    this.products.forEach(element => {
+      if(element.description.length > 250){
+        element.description = element.description.substring(0, 250)+'...';
+      }
+      element.created = element.created.substring(0, 10);
 
-  // getProductsNumber(){
-  //   this.categoryProducts.getProductsNumber(this.nameCat).subscribe(
-  //     res=>console.log(res)
+    });
+  }
 
-  //   )
-  // }
+  getProductsNumber(){
+    this.categoryProducts.getProductsNumber(this.catId).subscribe(
+      res=>console.log(res)
+
+    )
+  }
 
 
 }

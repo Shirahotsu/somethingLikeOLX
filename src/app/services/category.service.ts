@@ -19,21 +19,25 @@ export class CategoryService {
     ));
   }
 
-  getCatIdFromName(categoryName:string):number{
-    this.setCategoriesToVar();
+  getCatIdFromName(categoryName:string){
     let catId:number;
-    this.categories.forEach(element => {
-      if(element.category_name === categoryName){
-        catId = element.category_id
+    return this.http.get(this.url).pipe(map(
+      res => {
+        this.categories = res,
+        this.categories.forEach(element => {
+          if(element.category_name === categoryName){
+            catId = element.category_id
+          }
+        });
+        return catId;
       }
-    });
-    return catId
+    ));
+
+    // console.log(catId);
   }
 
   setCategoriesToVar(){
-    this.http.get(this.url).subscribe(
-      res => this.categories = res
-    );
+
   }
 
 }
