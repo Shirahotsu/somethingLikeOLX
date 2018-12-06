@@ -1,0 +1,12 @@
+<button id="xdelo" [@searchPanel]='state' (click)='changState()' (clickOutside)="onClickedOutside($event)" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
+    <mdb-icon  [ngClass]="{searchIcon: searchBtn2}" size="2x" icon="search" class="searchIcon2"></mdb-icon>
+
+    <form [formGroup]="searchForm" *ngIf="wideBtns" action="" class="searchForm">
+      <input formControlName="search"  type="text" id="form1" class="form-control" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
+    </form>
+
+  </button>
+
+  <form [formGroup]="searchForm" action="" class="col-12 p-1 searchMobile">
+    <input placeholder="Wyszukaj" formControlName="search"  type="text" id="form1" class="form-control col-12" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
+  </form>

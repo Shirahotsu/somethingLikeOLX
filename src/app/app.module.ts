@@ -34,6 +34,7 @@ import { InfoModalComponent } from './components/info-modal/info-modal.component
 import { UsersItemsComponent } from './components/users-items/users-items.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 import { MobileMenuComponent } from './components/mobile-menu/mobile-menu.component';
+import { AutocomplateComponent } from './components/menu/autocomplate/autocomplate.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,7 @@ const routes: Routes = [
     UsersItemsComponent,
     ModifyProductComponent,
     MobileMenuComponent,
+    AutocomplateComponent,
     ],
   imports: [
     BrowserAnimationsModule,

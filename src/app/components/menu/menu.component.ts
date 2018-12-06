@@ -3,18 +3,6 @@ import {MenuItem} from '@models/menuItem.model';
 import { CheckFavCatService } from '@services/check-fav-cat.service';
 import { FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms';
 import { LogginSessionService } from '@services/loggin-session.service';
-
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  keyframes,
-  query,
-  stagger
-} from "@angular/animations";
 import { InfoModalService } from '@services/info-modal.service';
 import { CategoryService } from '@services/category.service';
 
@@ -22,27 +10,7 @@ import { CategoryService } from '@services/category.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
-  animations: [
-    trigger("searchPanel", [
-      state(
-        "inactive",
-        style({
-          width: '60px',
-          borderRadius: '50%'
-        })
-      ),
-      state(
-        "active",
-        style({
-          width: '500px',
-          borderRadius: '100px'
-        })
-      ),
-      transition("inactive => active", animate("100ms ease-in")),
-      transition("active => inactive", animate("100ms ease-out"))
-    ]),
-  ]
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
   searchForm = new FormGroup({
@@ -158,27 +126,11 @@ export class MenuComponent implements OnInit {
     }
     else this.isThereFavCat = true;
   }
-  changState(){
-    this.state = "active";
-    this.searchBtn2 = true;
-    setTimeout(()=>{
-      this.wideBtns = true;
-    }, 100)
-  }
-  onClickedOutside(){
-    this.wideBtns = false;
-    setTimeout(()=>{
-      this.state = "inactive";
-    }, 100)
-  }
+
   myCallback1(e){
     this.model = e;
   }
-  getDataOnSecondChange(){
-    this.secondKey++;
-    if(this.secondKey === 2){
-    }
-  }
+
   toggleLoginForm(){
     this.isLogingIn = !this.isLogingIn;
   }

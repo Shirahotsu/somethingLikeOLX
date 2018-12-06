@@ -3,14 +3,7 @@
 </button>
 <nav class="primaryColor desktopNav">
   <div class="por menu-buttons-view">
-    <button id="xdelo" [@searchPanel]='state' (click)='changState()' (clickOutside)="onClickedOutside($event)" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
-      <mdb-icon  [ngClass]="{searchIcon: searchBtn2}" size="2x" icon="search" class="searchIcon2"></mdb-icon>
-
-      <form [formGroup]="searchForm" *ngIf="wideBtns" action="" class="searchForm">
-        <input formControlName="search"  type="text" id="form1" class="form-control" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
-      </form>
-
-    </button>
+    <app-autocomplate></app-autocomplate>
     <button (click)="checkFavCatBtn()" routerLink="/" placement="right" type="button" class="menu-buttons cp whiteColorText accentColorTextHover mt-4" mdbTooltip="Strona Główna">
       <mdb-icon size="2x" icon="home" aria-hidden="true"></mdb-icon>
     </button>
@@ -63,15 +56,13 @@
 
 
 
-<div mdbModal #mobileMenu="mdbModal" class="modal fade left" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+<div mdbModal #mobileMenu="mdbModal" class="modal mobileModal fade left" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-full-height modal" role="document">
     <div class="modal-content">
       <div class="modal-header px-0 py-1">
 
-        <form [formGroup]="searchForm" action="" class="col-12 p-1">
-          <input placeholder="Wyszukaj" formControlName="search"  type="text" id="form1" class="form-control col-12" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
-        </form>
+        <app-autocomplate></app-autocomplate>
       </div>
       <div class="modal-body row">
 
