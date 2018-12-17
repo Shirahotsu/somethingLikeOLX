@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms
 import { LogginSessionService } from '@services/loggin-session.service';
 import { InfoModalService } from '@services/info-modal.service';
 import { CategoryService } from '@services/category.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -64,7 +65,8 @@ export class MenuComponent implements OnInit {
     private checkFavCat:CheckFavCatService,
     private logginSession: LogginSessionService,
     private infoModal:InfoModalService,
-    private cat: CategoryService
+    private cat: CategoryService,
+    private router: Router,
     )
     {
     this.logginSession.isLoggedIn.subscribe(
@@ -73,7 +75,7 @@ export class MenuComponent implements OnInit {
       }
     )
     this.getAllCategories();
-    this.logginSession.setIsLoggedIn();
+    this.logginSession.checkExpDate();
     this.state = 'inactive';
     this.searchBtn2 = false;
     this.wideBtns = false;
@@ -83,32 +85,6 @@ export class MenuComponent implements OnInit {
     this.isMenuAnimationActive = false;
     this.secondKey = 0;
     this.isLogingIn = false;
-  //   this.menuItem = [
-  //   {
-  //     icon: 'anchor',
-  //     link: '/link',
-  //     visible: true,
-  //     cat: 'AGD_RTV'
-  //   },
-  //   {
-  //     icon: 'battery',
-  //     link: '/link',
-  //     visible: true,
-  //     cat: 'Obuwie'
-  //   },
-  //   {
-  //     icon: 'bank',
-  //     link: '/link',
-  //     visible: true,
-  //     cat: 'Samochody'
-  //   },
-  //   {
-  //     icon: 'battery',
-  //     link: '/link',
-  //     visible: true,
-  //     cat: 'Zdrowie'
-  //   }
-  // ]
   }
 
   ngOnInit() {
@@ -145,23 +121,24 @@ export class MenuComponent implements OnInit {
   }
   logoutUser(){
     this.logginSession.loggOutUser();
+    this.router.navigate(['/najnowsze']);
   }
   onSubmit(){
+    this.submitted = true;
     if(this.checkIfLoginNotEmpty()){
       this.logginSession.sendloginReq(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         res=>this.checkIfErrorInResponse(res),
-        error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+        err => this.infoModal.showErrorModal()
         );
       console.log('submit')
     }
     else{
-      this.submitted = true;
       this.pleaseComplateAllFieldsMessage('Wypełnij wszystkie pola');
       return false;
     }
   }
   checkIfErrorInResponse(e){
-    if(e[0] == "Podaj prawidłowy email lub hasło"){
+    if(e[1] == "Podaj prawidłowy email lub hasło"){
       this.pleaseComplateAllFieldsMessage('Podaj prawidłowy Email lub hasło');
     }
     else if(e[0] == 'GIT'){
@@ -171,7 +148,7 @@ export class MenuComponent implements OnInit {
       this.hideMobileLoginForm();
     }
     else{
-      this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+      this.infoModal.showErrorModal();
     }
   }
   pleaseComplateAllFieldsMessage(e){
@@ -207,6 +184,4 @@ export class MenuComponent implements OnInit {
       }
     );
   }
-
-
 }

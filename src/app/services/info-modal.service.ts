@@ -21,15 +21,20 @@ export class InfoModalService {
     this.setInfoMessage(e);
     this.showModal();
   }
+
+  showErrorModal(){
+    this.setInfoMessage('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej');
+    this.showModal();
+  }
   hideModal(){
     this.modalStatus.next('inactive');
     this.infoMessage
   }
-  navigateUser(e:string, f:number){
+  navigateUser(where:string, deley:number){
     setTimeout(
       ()=>{
-        this.router.navigate([`/${e}`]);
-      },f
+        this.router.navigate([`/${where}`]);
+      },deley
     )
   }
 }

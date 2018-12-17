@@ -4,3 +4,12 @@
 .itemsView:focus{
   outline: 0;
 }
+.catImg{
+  position: relative;
+  top: -7vw;
+}
+@media only screen and (max-width: 1660px){
+  .catImg{
+    top: 0;
+  }
+}

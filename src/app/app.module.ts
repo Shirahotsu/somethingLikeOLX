@@ -34,6 +34,9 @@ import { InfoModalComponent } from './components/info-modal/info-modal.component
 import { UsersItemsComponent } from './components/users-items/users-items.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 import { AutocomplateComponent } from './components/menu/autocomplate/autocomplate.component';
+import { SearchItemsComponent } from './components/search-items/search-items.component';
+import { MobileAutocomplateComponent } from './components/menu/mobile-autocomplate/mobile-autocomplate.component';
+import { UseOnlyPortraitComponent } from './components/use-only-portrait/use-only-portrait.component';
 
 const routes: Routes = [
   {
@@ -77,6 +80,10 @@ const routes: Routes = [
     path: "edytuj-produkt/:id",
     component: ModifyProductComponent
   },
+  {
+    path: "wyszukaj/:name",
+    component: SearchItemsComponent
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -102,6 +109,9 @@ const routes: Routes = [
     UsersItemsComponent,
     ModifyProductComponent,
     AutocomplateComponent,
+    SearchItemsComponent,
+    MobileAutocomplateComponent,
+    UseOnlyPortraitComponent,
     ],
   imports: [
     BrowserAnimationsModule,

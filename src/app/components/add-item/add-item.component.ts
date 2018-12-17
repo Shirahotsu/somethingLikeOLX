@@ -27,12 +27,8 @@ export class AddItemComponent implements OnInit {
     price:   ['', Validators.required],
   });
   formData:FormData = new FormData();
-  file22: File;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1NDM0NDc3NzIsInN1YiI6InRlc3QudEB3cC5wbCIsImVtYWlsIjoidGVzdC50QHdwLnBsIiwicGFzc3dvcmQiOiIyMjIyMjIifQ.qiX_ndacR5j5IZwlzw_1usBun0r1wFdERk-Ms4YoVluOrKSk1M9JYUJU1ePIE4UaZ6nJb3_JUENGI7tZk_wDuQ'
-    })
-  };
+  imageFile: File;
+  priceIsGraterThanZero: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -59,21 +55,13 @@ export class AddItemComponent implements OnInit {
   get f() { return this.addItemForm.controls; }
 
   onSubmit(){
-
     this.subbmited= true;
-    // if(this.checkIfCatChoosen()){
-    //   return;
-    // }
-    // else {
-    //   this.addItemTo();
-    // }
     this.addItemTo();
-
   }
 
   addItemTo(){
     let formDataInfo ={
-      image: this.file22,
+      image: this.imageFile,
       product: {
         name:  this.addItemForm.value.name,
         description:  this.addItemForm.value.description,
@@ -81,7 +69,6 @@ export class AddItemComponent implements OnInit {
         categoryId:  this.addItemForm.value.category
       }
     }
-    console.log(JSON.stringify(formDataInfo.product));
     this.formData.append('image', formDataInfo.image);
     this.formData.append('product', JSON.stringify(formDataInfo.product));
     this.addItem.sendItem(this.formData).subscribe(
@@ -93,10 +80,10 @@ export class AddItemComponent implements OnInit {
           this.infoModal.setAndShowModal(res[1]);
         }
         else{
-          this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+          this.infoModal.showErrorModal()
         }
       },
-      error => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
+      error => this.infoModal.showErrorModal()
     );
   }
 
@@ -109,12 +96,16 @@ export class AddItemComponent implements OnInit {
   }
   checkIfPrice(e){
     this.isPrice = true;
-    let val = e.target.value;
-    if(val !== ''){
-      this.progressBar.setThing(1,1);
-    }
-    else this.progressBar.setThing(1,0);
 
+    let val = e.target.value;
+    if(val !== '' && val > 0){
+      this.progressBar.setThing(1,1);
+      this.priceIsGraterThanZero = true;
+    }
+    else {
+      this.progressBar.setThing(1,0);
+      this.priceIsGraterThanZero = false;
+    }
   }
 
   checkIfDescription(e){
@@ -154,7 +145,6 @@ export class AddItemComponent implements OnInit {
 
           reader.onload = (event:any) => {
               this.url = event.target.result;
-              console.log(this.prepareSave())
           }
 
           reader.readAsDataURL(event.target.files[0]);
@@ -166,27 +156,10 @@ export class AddItemComponent implements OnInit {
       return
     }
 }
-onFileChange(event) {
-  if(event.target.files.length > 0) {
-    let file = this.url;
-    console.log(file)
-
-  }
-}
-prepareSave(): any {
-  let input = new FormData();
-  // input.append('name', this.addItemForm.value.name);
-  // input.append('description', this.addItemForm.value.description);
-  // input.append('price', this.addItemForm.value.price);
-  // input.append('category_id', this.addItemForm.value.category);
-  input.append('image', this.url);
-  return input;
-}
 fileChange(event) {
   let fileList: FileList = event.target.files;
   if(fileList.length > 0) {
-      this.file22 = fileList[0];
-      // this.formData.append('image', file);
+      this.imageFile = fileList[0];
   }
 }
 

@@ -13,8 +13,28 @@ export class CategoryComponent implements OnInit {
   products: any;
   dummyData2:any;
   moreProducts: number = 0;
-  catId:number
-
+  catId: number;
+  catNum: any;
+  moreBtn: boolean = true;
+  categoryImages: any[] = [
+    {
+      name: 'Samochody',
+      image:'../../../assets/samochody.jpg'
+    },
+    {
+      name: 'Obuwie',
+      image:'../../../assets/obuwie.jpg'
+    },
+    {
+      name: 'AGD/RTV',
+      image:'../../../assets/agdrtv.jpg'
+    },
+    {
+      name: 'Zdrowie',
+      image:'../../../assets/zdrowie.jpg'
+    }
+  ];
+  categoryImage:string;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -26,11 +46,7 @@ export class CategoryComponent implements OnInit {
         return false;
       };
       this.moreProducts = 0;
-      this.dummyData2 = "../../assets/Baner - elektronika.jpg";
-
       this.getParams();
-      // this.getData();
-
   }
 
   ngOnInit() {
@@ -41,20 +57,29 @@ export class CategoryComponent implements OnInit {
 
   getParams(){
     this.route.params.subscribe(
-      params => this.nameCat = params['name']
+      params => {
+        this.nameCat = params['name'];
+        this.getCatImage();
+      }
+
     );
+
     this.cat.getCatIdFromName(this.nameCat).subscribe(
       res => this.catId = res,
       err =>console.log(err),
       ()=> {
-        this.getData();
         this.getProductsNumber();
+        this.getData();
       }
     );
   }
 
   getData(){
     this.moreProducts += this.shownItems;
+    this.hideMoreBtnIfAllProductsHaveBeenShown();
+    console.log(this.moreProducts );
+    console.log(this.catNum);
+
     this.categoryProducts.getProducts(this.catId, this.moreProducts).subscribe(
       res => this.products = res,
       err => console.log(err),
@@ -75,10 +100,24 @@ export class CategoryComponent implements OnInit {
 
   getProductsNumber(){
     this.categoryProducts.getProductsNumber(this.catId).subscribe(
-      res=>console.log(res)
+      res=> {
+        this.catNum = res;
+      }
 
     )
   }
 
+  hideMoreBtnIfAllProductsHaveBeenShown(){
+    if(this.moreProducts >= this.catNum){
+      this.moreBtn = false;
+    }
+  }
 
+  getCatImage(){
+    this.categoryImages.forEach(e => {
+      if(e.name === this.nameCat){
+        this.categoryImage = e.image
+      }
+    });
+  }
 }

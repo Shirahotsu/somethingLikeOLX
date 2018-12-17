@@ -18,7 +18,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LogginSessionService {
-  // test
   httpOptions2 = {
     headers: new HttpHeaders({
       'Authorization': this.jwt.getJwtToken()
@@ -40,7 +39,7 @@ export class LogginSessionService {
     localStorage.setItem('ZG9udERlY29kZUl0', "ZnVubnRDb2Rl");
     this.jwt.setJwtToken(e);
     this.setSessionExp();
-    this.setIsLoggedIn();
+    this.setIfIsLoggedIn();
   }
   sendloginReq(e,p):any{
     return this.http.post<any>(this.url1, {email:e, password:p
@@ -52,14 +51,14 @@ export class LogginSessionService {
   loggOutUser(){
     localStorage.setItem('ZG9udERlY29kZUl0', "aWR1bm5v");
     this.delSessionExp();
-    this.setIsLoggedIn();
+    this.setIfIsLoggedIn();
   }
 
   getLoggedUser():string{
     return localStorage.getItem('ZG9udERlY29kZUl0');
   }
 
-  setIsLoggedIn():void{
+  setIfIsLoggedIn():void{
     if(this.getLoggedUser()==='ZnVubnRDb2Rl'){
       this.isLoggedIn.next(true)
     }
@@ -67,12 +66,17 @@ export class LogginSessionService {
       this.isLoggedIn.next(false)
     }
   }
+
   checkExpDate(){
     let expDate = this.getSessionExp();
     let currDate:number = new Date().getTime();
+    console.log(expDate);
+    console.log(expDate-currDate);
+
     if(currDate > expDate){
       this.loggOutUser();
     }
+    else this.setIfIsLoggedIn();
   }
 
   checkIfCurrentLogged(){
@@ -82,9 +86,9 @@ export class LogginSessionService {
   }
 
   setSessionExp(){
-    const sixHours = 21600000;
+    const fiveHours = 18000000;
     const currDate = new Date();
-    let expDate:string = stringify(currDate.getTime()+ sixHours);
+    let expDate:string = stringify(currDate.getTime()+ fiveHours);
     localStorage.setItem('bm9Ob1VEb250', expDate);
   }
 

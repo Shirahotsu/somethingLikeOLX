@@ -5,7 +5,7 @@
               <h1 class="mb-4">Dodaj produkt</h1>
 
             <div *ngIf="subbmited && f.name.errors" class="red-text font-weight-bold">
-                <div *ngIf="f.name.errors.required">Podaj Nazwę</div>
+              Podaj Nazwę
             </div>
 
             <input (keyup)="checkIfName($event)"  type="name" id="itemName" [ngClass]="{ 'isInvalid': submitted && f.name.errors}" formControlName="name" class="form-control mb-5 col-12" placeholder="Nazwa">
@@ -15,7 +15,7 @@
               <div class="row">
                 <div class=" col-lg-6 col-12 por">
                   <div *ngIf="subbmited && !isCatChoosen" class="invalidForm red-text font-weight-bold">
-                      <div *ngIf="subbmited && !isCatChoosen">Wybierz kategorię</div>
+                    Wybierz kategorię
                   </div>
 
                   <select (change)="checkChoosenCat()" formControlName="category" class="browser-default custom-select mb-5">
@@ -30,8 +30,8 @@
 
 
                 <div class="col-lg-6 col-12 por">
-                  <div *ngIf="isPrice && f.price.errors" class="invalidForm red-text font-weight-bold">
-                      <div *ngIf="f.price.errors.required">Podaj Cenę</div>
+                  <div *ngIf="isPrice && f.price.errors || isPrice && !priceIsGraterThanZero" class="invalidForm red-text font-weight-bold">
+                    Podaj Cenę
                   </div>
 
                   <input (keyup)="checkIfPrice($event)" name="price" type="number" id="itemPrice" [ngClass]="{ 'isInvalid': submitted && f.price.errors }" formControlName="price" class="form-control mb-5" placeholder="Cena[zł]">
@@ -41,7 +41,7 @@
 
 
             <div *ngIf="subbmited && f.description.errors" class=" red-text font-weight-bold">
-                <div *ngIf="f.description.errors.required">Podaj Opis</div>
+                Podaj Opis
             </div>
 
             <div class="md-form textarea">
@@ -52,7 +52,7 @@
 
 
             <div *ngIf="fileError" class="red-text font-weight-bold">
-                <div *ngIf="fileError">Wyślij zdjęcie typu JPG, albo PNG</div>
+              Wyślij zdjęcie typu JPG, albo PNG
             </div>
 
             <div class="row">

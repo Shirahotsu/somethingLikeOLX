@@ -28,6 +28,7 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "jwt-decode": "^2.2.0",
     "ng-click-outside": "^4.0.0",
     "ngx-cookie-service": "^1.0.10",
     "ngx-pipes": "^2.3.5",

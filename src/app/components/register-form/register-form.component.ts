@@ -13,6 +13,7 @@ import {
   query,
   stagger
 } from "@angular/animations";
+import { InfoModalService } from '@services/info-modal.service';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -40,6 +41,8 @@ export class RegisterFormComponent implements OnInit {
     lastName:   ['',Validators.required],
     password:   ['', [Validators.required, Validators.minLength(8)]],
     password2:  ['', [Validators.required, Validators.minLength(8)]],
+    place:  ['', Validators.required],
+    zipCode:  ['', Validators.required],
     number:     ['', [Validators.required, Validators.minLength(9)]],
     email:      ['', [Validators.required]],
     over16:      ['', [Validators.required]],
@@ -60,6 +63,7 @@ export class RegisterFormComponent implements OnInit {
     private register:RegisterService,
     private router: Router,
     private logginSession: LogginSessionService,
+    private infoModal: InfoModalService
     ) {
   }
 
@@ -79,28 +83,30 @@ export class RegisterFormComponent implements OnInit {
   }
   sendRegisterRequest(){
     this.register.sendRegisterForm(this.registerForm.value).subscribe(
-      res =>this.checkRegisterResponse(res)
+      res =>this.checkRegisterResponse(res),
+      err => this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej')
 
     );
     // console.log(this.successReg);
   }
   checkRegisterResponse(e){
-    if(e==='Zarejestrowano'){
-      // this.logginSession.loggInUser();
+    if(e[0]==='GIT'){
+      this.logginSession.logInUserLocal(e[2]);
       this.router.navigate(['/najnowsze']);
     }
-    else if(e==="Podany email jest już zajęty"){
+    else if(e[0]==="BLAD" && e[1]==="Podany email jest już zajęty"){
       this.emailExist = true;
     }
-    else{
-      console.log("NIE DZIAŁA");
+    else if(e[0]==="BLAD"){
+      this.infoModal.setAndShowModal(e[1])
     }
+    else this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej');
   }
   checkPasswordStrength(e){
     let val =  e.target.value;
     val = String(val);
     //If password contains both lower and uppercase characters, increase strength value.
-    if (val.length > 8) {
+    if (val.length > 7) {
       this.strength[3]= 1;
       if (val.match(/([A-Z])/)) {
           this.strength[0]= 1;

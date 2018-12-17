@@ -9,6 +9,7 @@ import { map } from "rxjs/operators";
 })
 export class MyProductsService {
   url:string = 'http://192.168.0.4:8090/rest/product/myProducts';
+  url2:string = 'http://192.168.0.4:8090/rest/product/deleteProduct/';
   httpOptions = {
     headers: new HttpHeaders({
       'Authorization': this.jwt.getJwtToken()
@@ -21,6 +22,11 @@ export class MyProductsService {
 
   getMyProducts(){
     return this.http.get(this.url, this.httpOptions).pipe(map(
+      res => {return res}
+    ));
+  }
+  deleteMyProducts(productId:number){
+    return this.http.get(this.url2+productId, this.httpOptions).pipe(map(
       res => {return res}
     ));
   }

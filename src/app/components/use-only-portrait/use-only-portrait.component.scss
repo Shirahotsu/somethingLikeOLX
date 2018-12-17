@@ -1,0 +1,14 @@
+div{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 9999999;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: bolder;
+}

@@ -57,7 +57,7 @@ export class ModifyProductComponent implements OnInit {
     this.productForm.patchValue({description: e.description});
   }
   ifError(){
-    this.infoModal.setAndShowModal('Kurka wodna! Coś poszło nie tak, spróbuj ponownie póżniej');
+    this.infoModal.showErrorModal();
     this.infoModal.navigateUser('moje-produkty', 3000);
   }
 

@@ -25,8 +25,8 @@ export class CategoryService {
       res => {
         this.categories = res,
         this.categories.forEach(element => {
-          if(element.category_name === categoryName){
-            catId = element.category_id
+          if(element.categoryName === categoryName){
+            catId = element.categoryId
           }
         });
         return catId;

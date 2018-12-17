@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
 import {
   trigger,
@@ -7,6 +7,8 @@ import {
   animate,
   transition,
 } from "@angular/animations";
+import { SearchService } from '@services/search.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-autocomplate',
@@ -34,31 +36,22 @@ import {
   ]
 })
 export class AutocomplateComponent implements OnInit {
+  @ViewChildren('searchInput')searchInp : QueryList<any>;
   wideBtns: boolean = false;
+  hints: boolean = false;
+  canUseCursor: boolean = true
+  canStartAnimation: boolean = true;
   searchBtn2: boolean = false;
   state:string= 'inactive';
   searchForm = new FormGroup({
     search: new FormControl('')
   });
-  arrayOfStrings:string[] = [
-    "this",
-    "is",
-    "array",
-    "array2",
-    "array3",
-    "array4",
-    "array5",
-    "of",
-    "text",
-    "with",
-    "long",
-    "and long",
-    "and long",
-    "list"
-  ];
-  secondKey:number = 0;
+  arrayOfStrings:any;
 
-  constructor(
+  constructor
+  (
+    private search: SearchService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -67,19 +60,59 @@ export class AutocomplateComponent implements OnInit {
   changState(){
     this.state = "active";
     this.searchBtn2 = true;
-    setTimeout(()=>{
-      this.wideBtns = true;
-    }, 100)
+    if(this.canStartAnimation === true){
+      setTimeout(()=>{
+        this.wideBtns = true;
+      }, 100)
+    }
+    this.canStartAnimation= true;
   }
-  onClickedOutside(){
+
+  hideSearchBar(){
     this.wideBtns = false;
     setTimeout(()=>{
       this.state = "inactive";
     }, 100)
   }
-  getDataOnSecondChange(){
-    this.secondKey++;
-    if(this.secondKey === 2){
+
+  getDataOnSecondChange(event){
+    let val = event.target.value;
+    if(val.length > 2){
+      this.hints = true;
+      this.search.getSearchResult(val).subscribe(
+        res => this.checkDataRes(res),
+        err => this.arrayOfStrings = ['Podaj prawidłową nazwę produktu']
+      );
+    }
+    else {
+      this.arrayOfStrings = null;
+      this.hints = false;
     }
   }
+
+  setHintValue(hint:string){
+    this.canStartAnimation = false;
+    this.cantUseCursor();
+    this.router.navigate(['/wyszukaj/'+hint]);
+  }
+
+  checkDataRes(res){
+    if(res.length === 0){
+      this.arrayOfStrings = ['Brak wyników'];
+    }
+    else this.arrayOfStrings = res
+  }
+  cantUseCursor(){
+    this.canUseCursor= false
+  }
+  setCursorOnInputField(){
+    if(this.canUseCursor === true){
+      setTimeout(()=>{
+        console.log('xDDDDD');
+        this.searchInp.first.nativeElement.focus();
+      },200);
+    }
+    this.canUseCursor= true;
+  }
+
 }

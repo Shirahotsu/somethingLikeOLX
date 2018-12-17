@@ -11,8 +11,8 @@
       <mdb-icon size="2x" icon="star" aria-hidden="true"></mdb-icon>
     </button>
       <ng-container *ngFor='let mItem of menuItem'>
-        <button  routerLink="/kategoria/{{mItem.category_name}}" placement="right"  type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="{{mItem.category_name}}">
-          <mdb-icon size="2x" icon="anchor"></mdb-icon>
+        <button  routerLink="/kategoria/{{mItem.categoryName}}" placement="right"  type="button" class="menu-buttons cp whiteColorText accentColorTextHover" mdbTooltip="{{mItem.categoryName}}">
+          <mdb-icon size="2x" icon="{{mItem.iconName}}"></mdb-icon>
         </button>
       </ng-container>
       <hr>
@@ -27,8 +27,8 @@
                           <div *ngIf="submitted" class="invalidRegister red-text font-weight-bold">
                               <div *ngIf="submitted">{{loginMessage}}</div>
                           </div>
-                          <input (keyup)='checkEmail($event)' type="enail" id="lForm1" formControlName="email" class="form-control" placeholder="Email">
-                          <input (keyup)='checkPassword($event)' type="password" id="lForm2" formControlName="password" class="form-control" placeholder="Hasło">
+                          <input (keyup)='checkEmail($event)' type="enail" id="lForm1" formControlName="email" name="email" class="form-control" placeholder="Email">
+                          <input (keyup)='checkPassword($event)' type="password" name="password" id="lForm2" formControlName="password" class="form-control" placeholder="Hasło">
 
                           <button type="submit" mdbWavesEffect block="true" mdbBtn class="primaryColor   waves-light">Zaloguj się</button>
 
@@ -60,9 +60,9 @@
   aria-hidden="true">
   <div class="modal-dialog modal-full-height modal" role="document">
     <div class="modal-content">
-      <div class="modal-header px-0 py-1">
+      <div class="modal-header px-0 pt-1">
 
-        <app-autocomplate></app-autocomplate>
+        <app-mobile-autocomplate></app-mobile-autocomplate>
       </div>
       <div class="modal-body row">
 
@@ -76,8 +76,8 @@
           <hr>
 
           <ng-container *ngFor='let mItem of menuItem'>
-            <li  routerLink="/kategoria/{{mItem.category_name}}" class="cp col-12">
-              <mdb-icon size="1x" icon="anchor"></mdb-icon>{{mItem.category_name}}
+            <li  routerLink="/kategoria/{{mItem.categoryName}}" class="cp col-12">
+              <mdb-icon size="1x" icon="{{mItem.iconName}}"></mdb-icon>{{mItem.categoryName}}
             </li>
           </ng-container>
 

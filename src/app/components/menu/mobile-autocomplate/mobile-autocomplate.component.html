@@ -1,0 +1,10 @@
+
+  <form autocomplete="off" [formGroup]="searchForm" action="" class="w-100 searchMobile noPd" (clickOutside)="hideSearchBar()">
+      <input (click)='showSearchBar()' placeholder="Wyszukaj" formControlName="search"  type="text" id="form1" class="form-control w-100 px-2"(keydown)="getDataOnSecondChange($event)">
+      <div class="autocomplateHintsView mHints">
+          <ul *ngIf="hints" class="pt-4">
+              <li (click)='hideSearchBar(); setHintValue(item)' class="py-1 px-2 trimText cp" *ngFor="let item of arrayOfStrings">{{item}}
+              </li>
+          </ul>
+        </div>
+    </form>

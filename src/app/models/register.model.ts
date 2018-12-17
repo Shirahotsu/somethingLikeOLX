@@ -3,6 +3,8 @@ export class Register{
   lastName: string;
   password: string;
   password2: string;
+  place: string;
+  zipCode: number;
   number: number;
   email: string;
   over16: boolean;

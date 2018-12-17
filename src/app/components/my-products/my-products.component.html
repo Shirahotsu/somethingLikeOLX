@@ -10,9 +10,9 @@
             {{product.name}}
           </div>
           <div class="col-xl-4 col-6 row">
-              <div routerLink="/produkt/{{product.productId}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Podgląd</div>
-              <div routerLink="/edytuj-produkt/{{product.productId}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Edytuj</div>
-              <div class="col-4 myProductBtn primaryColorText accentColorTextHover">Usuń</div>
+              <div routerLink="/produkt/{{product.id}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Podgląd</div>
+              <div routerLink="/edytuj-produkt/{{product.id}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Edytuj</div>
+              <div (click)="setProductIdAndName(product.id, product.name);deleteModal.show()" class="col-4 myProductBtn primaryColorText accentColorTextHover">Usuń</div>
           </div>
         </div>
       </div>
@@ -20,3 +20,17 @@
   </div>
   </div>
 </article>
+
+<div mdbModal #deleteModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4 class="modal-title w-100 centerAll" id="myModalLabel">Na pewno chcesz usunąć poniższy produkt?</h4>
+        <div class="trimText productNameToDelete mt-3">{{myProductName}}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn class="waves-light primaryColor" mdbWavesEffect aria-label="Close" (click)="deleteModal.hide()">Nie</button>
+          <button type="button" mdbBtn class="waves-light accentColor" mdbWavesEffect (click)="deleteMyProduct(); deleteModal.hide()">Tak</button>
+      </div>
+    </div>
+  </div>

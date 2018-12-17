@@ -1,7 +1,7 @@
 <article class="">
   <div class="itemsGallery">
     <div class="catImg">
-      <img src="{{dummyData2}}" alt="nameCat" class="img-fluid">
+      <img src="{{categoryImage}}" alt="nameCat" class="img-fluid">
     </div>
     <div class="white itemPadding px-5 py-5">
         <div class="itemsShocase row row0">
@@ -23,7 +23,7 @@
               </div>
             </div>
           </div>
-      <figure (click)="getData()" class="moreItemsBtn">Więcej...</figure>
+      <figure *ngIf="moreBtn" (click)="getData()" class="moreItemsBtn">Więcej...</figure>
     </div>
   </div>
 </article>

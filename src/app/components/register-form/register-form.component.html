@@ -54,6 +54,16 @@
         </div>
         <input name="phone" type="tel" id="registerNumber" [ngClass]="{ 'isInvalid': submitted && f.number.errors }" formControlName="number" class="form-control mb-4" placeholder="Numer telefonu / komórkowy">
 
+        <div *ngIf="submitted && f.place.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.place.errors.required">Podaj Miejscowość</div>
+        </div>
+        <input autocomplete="shipping locality" name="ship-city" type="text" id="registerplace" [ngClass]="{ 'isInvalid': submitted && f.place.errors }" formControlName="place" class="form-control mb-4" placeholder="Miejscowość">
+
+        <div *ngIf="submitted && f.zipCode.errors" class="invalidRegister red-text font-weight-bold">
+            <div *ngIf="f.zipCode.errors.required">Podaj Kod pocztowy</div>
+        </div>
+        <input autocomplete="shipping postal-code" name="ship-zip" type="text" id="registerzipCode" [ngClass]="{ 'isInvalid': submitted && f.zipCode.errors }" formControlName="zipCode" class="form-control mb-4" placeholder="Kod pocztowy">
+
           <div class="formCheckBox">
 
             <div>

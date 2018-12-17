@@ -23,14 +23,15 @@ export class RegisterService {
   //  napraw return boolean
    sendRegisterForm(register:Register):any{
     return this.http.post<any>(this.url, {
-      first_name:    register.firstName,
-      last_name:    register.lastName,
+      firstName:    register.firstName,
+      lastName:    register.lastName,
       password:     register.password,
       email:        register.email,
-      phone_number: register.number,
+      phoneNumber: register.number,
+      place: register.place,
+      zipCode: register.zipCode,
       newsletter:   register.newsletter,
-      role_id:      1
-    }, httpOptions).pipe(map(res => {return res[0]}));
+    }, httpOptions).pipe(map(res => {return res}));
   }
 
 

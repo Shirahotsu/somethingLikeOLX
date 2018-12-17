@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class CategoryProductsService {
 
-  url:string = 'http://192.168.0.4:8090/rest/product/get';
+  url:string = 'http://192.168.0.4:8090/rest/product/getNewestProducts';
   url2:string = 'http://192.168.0.4:8090/rest/product/getProductCount';
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,13 +22,15 @@ export class CategoryProductsService {
   ) { }
 
 
-  getProducts(e:number, f:number){
-    return this.http.get(`${this.url}/${e}/${f}`, this.httpOptions).pipe(map(
+  getProducts(category:number, x:number){
+    console.log(this.url+'/'+category+'/'+x);
+
+    return this.http.get(this.url+'/'+category+'/'+x).pipe(map(
       res => {return res}
     ));
   }
   getProductsNumber(e:number){
-    return this.http.get(`${this.url}/${e}`, this.httpOptions).pipe(map(
+    return this.http.get(`${this.url2}/${e}`).pipe(map(
       res => {return res}
     ));
   }

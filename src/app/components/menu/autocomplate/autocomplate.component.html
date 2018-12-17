@@ -1,12 +1,17 @@
-<button id="xdelo" [@searchPanel]='state' (click)='changState()' (clickOutside)="onClickedOutside($event)" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
+<button id="xdelo" [@searchPanel]='state' (click)='changState(); setCursorOnInputField()' (clickOutside)="hideSearchBar()" placement="right" mdbTooltip="Wyszukaj"  mdbBtn type="button"  class="accentColor waves-light search-button mt-4" mdbWavesEffect>
     <mdb-icon  [ngClass]="{searchIcon: searchBtn2}" size="2x" icon="search" class="searchIcon2"></mdb-icon>
 
-    <form [formGroup]="searchForm" *ngIf="wideBtns" action="" class="searchForm">
-      <input formControlName="search"  type="text" id="form1" class="form-control" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
-    </form>
+   <ng-container *ngIf="wideBtns">
+      <form autocomplete="off" [formGroup]="searchForm"  action="" class="searchForm">
+        <input (keydown)="getDataOnSecondChange($event)" *ngIf="wideBtns" formControlName="search" name="search"  type="text" id="form1" class="form-control" placeholder="Wyszukaj" #searchInput>
+        <div class="autocomplateHintsView">
+          <ul *ngIf="hints && wideBtns" class="pt-4">
+              <li (click)='hideSearchBar(); setHintValue(item)' class="py-1 px-2 trimText" *ngFor="let item of arrayOfStrings">{{item}}
+              </li>
+          </ul>
+        </div>
+      </form>
+   </ng-container>
 
   </button>
 
-  <form [formGroup]="searchForm" action="" class="col-12 p-1 searchMobile">
-    <input placeholder="Wyszukaj" formControlName="search"  type="text" id="form1" class="form-control col-12" auto-complete [source]="arrayOfStrings" no-match-found-text="Niestey nie ma takich produktów..." min-chars="2" (keypress)="getDataOnSecondChange()">
-  </form>
