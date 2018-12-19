@@ -9,6 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class NewestProductsService {
   url:string = 'http://192.168.0.4:8090/rest/product/getNewestProducts/';
+  url2:string = 'http://192.168.0.4:8090/rest/product/getProductCount';
   httpOptions = {
     headers: new HttpHeaders({
       'Authorization': this.jwt.getJwtToken()
@@ -22,6 +23,11 @@ export class NewestProductsService {
 
   getProducts(e:number){
     return this.http.get(this.url+e, this.httpOptions).pipe(map(
+      res => {return res}
+    ));
+  }
+  getProductsNumber(){
+    return this.http.get(this.url2).pipe(map(
       res => {return res}
     ));
   }

@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <figure (click)="getNewestProducts()" class="moreItemsBtn">Więcej...</figure>
+      <figure *ngIf="moreBtn$ | async" (click)="getNewestProducts()" class="moreItemsBtn">Więcej...</figure>
     </div>
   </div>
 

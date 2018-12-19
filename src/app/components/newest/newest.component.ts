@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewestProductsService } from '@services/newest-products.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-newest',
@@ -10,22 +11,23 @@ export class NewestComponent implements OnInit {
   products:any;
   shownItems:number = 3;
   moreProducts: number = 0;
-  txt:string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur aperiam temporibus eveniet nihil magni? Tempore veritatis laborum qui quos esse debitis facere, doloribus, reiciendis distinctio reprehenderit, odit voluptas deserunt ea!Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur aperiam temporibus eveniet nihil magni? Tempore veritatis laborum qui quos esse debitis ';
+  productNum: any;
+  moreBtn$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   constructor(
     private newestProducts: NewestProductsService
   ) {
     this.getNewestProducts();
+    this.getProductsNumber();
 
   }
 
   ngOnInit() {
-    console.log(this.txt.length);
 
   }
 
   getNewestProducts(){
     this.moreProducts += this.shownItems;
-    console.log(this.moreProducts)
+    this.hideMoreBtnIfAllProductsHaveBeenShown();
     this.newestProducts.getProducts(this.moreProducts ).subscribe(
       res => {
         this.products = res;
@@ -37,6 +39,18 @@ export class NewestComponent implements OnInit {
 
     )
   }
+    getProductsNumber(){
+      this.newestProducts.getProductsNumber().subscribe(
+        res=> {
+          this.productNum = res;
+        }
+      )
+    }
+    hideMoreBtnIfAllProductsHaveBeenShown(){
+      if(this.moreProducts >= this.productNum){
+        this.moreBtn$.next(false)
+      }
+    }
 
   trimContent(){
     this.products.forEach(element => {

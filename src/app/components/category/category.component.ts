@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryProductsService } from '@services/category-products.service';
 import { CategoryService } from '@services/category.service';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -15,7 +17,7 @@ export class CategoryComponent implements OnInit {
   moreProducts: number = 0;
   catId: number;
   catNum: any;
-  moreBtn: boolean = true;
+  moreBtn$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   categoryImages: any[] = [
     {
       name: 'Samochody',
@@ -41,7 +43,6 @@ export class CategoryComponent implements OnInit {
     private categoryProducts: CategoryProductsService,
     private cat: CategoryService
     ) {
-
       this.router.routeReuseStrategy.shouldReuseRoute = function() {
         return false;
       };
@@ -102,6 +103,8 @@ export class CategoryComponent implements OnInit {
     this.categoryProducts.getProductsNumber(this.catId).subscribe(
       res=> {
         this.catNum = res;
+        console.log(res);
+
       }
 
     )
@@ -109,7 +112,7 @@ export class CategoryComponent implements OnInit {
 
   hideMoreBtnIfAllProductsHaveBeenShown(){
     if(this.moreProducts >= this.catNum){
-      this.moreBtn = false;
+      this.moreBtn$.next(false)
     }
   }
 
