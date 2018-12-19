@@ -1,77 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetDataService } from '@services/get-data.service';
+import { SingleProductService } from '@services/single-product.service';
+import { InfoModalService } from '@services/info-modal.service';
+import { RecemoendedCategoriesService } from '@services/recemoended-categories.service';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-single-item',
   templateUrl: './single-item.component.html',
-  styleUrls: ['./single-item.component.scss']
+  styleUrls: ['./single-item.component.scss'],
 })
-export class SingleItemComponent implements OnInit {
-  forU:any;
-  private sub: any;
+export class SingleItemComponent{
+  sub: any;
   id:number;
-  itemObj:any;
-  product:any;
+  singleProduct:Observable<{}>;
+  catId:number = 0;
+  recomendedProducts:Observable<{}>;
   constructor(
     private route: ActivatedRoute,
-    private json:GetDataService
+    private json:GetDataService,
+    private product: SingleProductService,
+    private modal: InfoModalService,
+    private recCat: RecemoendedCategoriesService
   ) {
-    this.forU= [
-      {
-        price: 150,
-        image: '../../assets/zd1.jpg',
-        name: 'Telewizor samsung',
-        id:0,
-        cat: "agd rtv",
-      },
-      {
-        price: 312,
-        image: '../../assets/zd1.jpg',
-        name: 'Telewizor samsung',
-        id:1,
-        cat: "agd rtv",
-      },
-      {
-        price: 15350,
-        image: '../../assets/zd2.jpg',
-        name: 'Zmywarka twojej matki',
-        id:2,
-        cat: "agd rtv",
-      },
-      {
-        price: 2,
-        image: '../../assets/zd6.jpg',
-        name: 'pralka',
-        id:3,
-        cat: "agd rtv",
-      },
-      {
-        price: 213,
-        image: '../../assets/zd4.jpg',
-        name: 'kuchenka',
-        id:4,
-        cat: "agd rtv",
-      }
-    ];
+    this.getParamsFromLink();
   }
 
-  ngOnInit() {
+  getParamsFromLink(){
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['name']; // (+) converts string 'id' to a number
-      // In a real app: dispatch action to load the details here.
-      this.getFromArray();
-  });
+      this.id = +params['id'];
+      this.getProduct();
+    });
+  }
 
+  getProduct(){
+    this.singleProduct = this.product.getSingleProduct(this.id).pipe(share());
+    this.singleProduct.subscribe(
+        res => this.checkRes(res),
+        err => {
+          this.modal.showErrorModal();
+          this.modal.navigateUser('najnowsze', 200)
+        }
+    );
+  }
+  checkRes(res){
+    this.catId = res.categoryId;
+    if(res===null){
+      this.modal.setAndShowModal('Dany produkt nie istnieje');
+      this.modal.navigateUser('najnowsze', 200)
+    }
+    else if(res[0]==='BLAD'){
+      this.modal.showErrorModal();
+      this.modal.navigateUser('najnowsze', 200)
+    }
+    this.getRecomendedCategories();
 
   }
-  getFromArray(){
-    this.json.getLocalData().subscribe(
-      res => {
-        this.product = res[this.id],
-        console.log(res)
+
+  getRecomendedCategories(){
+    this.recomendedProducts =  this.recCat.getRecomendedCategories(this.catId,this.id).pipe(share());
+    this.recomendedProducts.subscribe(
+      res => '',
+      err => {
+        this.modal.showErrorModal();
+        this.modal.navigateUser('najnowsze', 200)
       }
-    );
+  );
   }
 
 }

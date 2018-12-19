@@ -27,25 +27,32 @@ export class FavouriteCategoriesDirective {
   const el = document.getElementById('xdelo');
   const click$ = fromEvent(this.elem.nativeElement, 'click');
   click$.subscribe((event) => {
-
     switch(this.appInCat) {
       case this.allCats[0].name:
         this.allCats[0].number++;
         this.favCat.sendCookieData(  this.allCats);
           break;
+
       case this.allCats[1].name:
         this.allCats[1].number++;
         this.favCat.sendCookieData(  this.allCats);
           break;
+
       case this.allCats[2].name:
         this.allCats[2].number++;
         this.favCat.sendCookieData(  this.allCats);
           break;
+
+      case this.allCats[3].name:
+        this.allCats[3].number++;
+        this.favCat.sendCookieData(  this.allCats);
+          break;
+
       default:
-      console.log('err');
+      console.log('oopise doopsie');
   }
   console.log(this.allCats);
-  console.log(this.appInCat);
+  console.log(typeof this.appInCat);
 
   });
 }

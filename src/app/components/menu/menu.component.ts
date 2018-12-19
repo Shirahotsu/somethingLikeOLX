@@ -89,6 +89,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.checkFavCatBtn();
+    // zmienić czas na 5h
     setInterval(()=> this.logginSession.checkIfCurrentLogged(), 1200000);
 
   }

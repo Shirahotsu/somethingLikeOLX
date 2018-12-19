@@ -5,7 +5,7 @@
       </div>
       <div class="white itemPadding px-5 py-5">
           <div class="itemsShocase row row0">
-              <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products" class="itemsView col-xl-10 offset-xl-1 col-md-12 offset-md-0">
+              <div appFavCat appInCat="{{item.categoryId}}" routerLink="/produkt/{{item.productId}}" *ngFor="let item of products | async" class="itemsView col-xl-10 offset-xl-1 col-md-12 offset-md-0">
                 <div class="itmesInner col-12 row row0 py-3">
                   <div class="itemImage col-lg-4 col-sm-6 col-12">
                     <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
@@ -23,7 +23,6 @@
                 </div>
               </div>
             </div>
-        <figure (click)="getData()" class="moreItemsBtn">Więcej...</figure>
       </div>
     </div>
   </article>

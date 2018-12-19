@@ -20,7 +20,6 @@ export class ForYouComponent implements OnInit {
   constructor(
     private checkFavCat: CheckFavCatService,
     private router: Router,
-    private jsonData: GetDataService,
     private getCat: CategoryProductsService
   ) {
     this.getFavCatFromCookie();

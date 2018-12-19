@@ -8,10 +8,10 @@
     </div>
     <div class="itemsGallery px-5">
       <div class="itemsShocase row">
-        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU1' class="itemsView">
+        <div appFavCat appInCat="{{item.categoryId}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU1' class="itemsView">
           <div class="itmesInner">
             <div class="itemImage">
-              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+              <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
             </div>
             <div class="accentColorTextHover itemInfo">
               <div class="itemName trimText">{{item.name}}</div>
@@ -36,10 +36,10 @@
           </div>
       <div class="itemsShocase row">
 
-          <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU2' class="itemsView">
+          <div appFavCat appInCat="{{item.categoryId}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU2' class="itemsView">
             <div class="itmesInner">
               <div class="itemImage">
-                <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+                <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
               </div>
               <div class="accentColorTextHover itemInfo">
                 <div class="trimText itemName">{{item.name}}</div>

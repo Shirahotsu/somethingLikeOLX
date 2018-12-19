@@ -1,53 +1,77 @@
 <article class="">
-  <div class="white p-5">
+  <!-- <nav>
+    <div> {{product.price}}</div>
+    <div>{{product.author}}</div>
+    <div>{{product.city}}</div>
+    <div>Produkty użytkownika</div>
+    <div>Numer kontaktowy</div>
+  </nav> -->
+  <div class="white p-5" *ngIf="singleProduct | async; let singleProduct">
     <div class="row">
-      <div class="col-xl-9 col-12">
-        <img src="{{product.image}}" class="img-fluid" alt="">
+      <div class="col-xl-9 col-12 productsImageView">
+        <img  src="http://{{singleProduct.image}}" class="img-fluid productsImage" alt="{{singleProduct.name}}">
       </div>
-      <div class="col-3 hideOnMed">
+      <div class="col-xl-3 col-12">
         <!-- <div class="row"><span class="item-price">{{product.price}} zł</span></div> -->
-        <div class=" item-buttons">
-            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
-              mdbWavesEffect> {{product.price}} zł</button>
-            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
-              mdbWavesEffect> {{product.author}}</button>
-            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button"
-              mdbWavesEffect> {{product.city}} </button>
-            <app-users-items class="col-12 noPd"></app-users-items>
-            <button mdbBtn type="button" class="col-12 primaryColor item-btn waves-light search-button" mdbWavesEffect>
-              Wyślij wiadomość</button>
+        <div class="item-buttons" >
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button hideOnLargeOnly"
+              mdbWavesEffect> {{singleProduct.price}} zł</button>
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button hideOnLargeOnly"
+              mdbWavesEffect> {{singleProduct.owner.firstName}} {{singleProduct.owner.lastName}}</button>
+            <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button hideOnLargeOnly"
+              mdbWavesEffect> {{singleProduct.owner.place}} </button>
+
+              <button mdbBtn disabled type="button" class="col-xl-12 col-12 primaryColor item-btn waves-light search-button itemLilInfo showOnLargeOnly"
+              mdbWavesEffect>
+                <div>{{singleProduct.price}}zł</div>
+                <div>{{singleProduct.owner.firstName}} {{singleProduct.owner.lastName}}</div>
+                <div>{{singleProduct.owner.place}}</div>
+              </button>
+
+
+              <app-users-items class="col-12 noPd"></app-users-items>
+                <button mdbBtn type="button" class="col-xl-12 col-md-6 col-12 primaryColor item-btn waves-light search-button nrK" mdbWavesEffect>
+              Numer kontaktowy</button>
         </div>
         <div class="col-1"></div>
       </div>
 
       <div class="row col-12">
         <div class="col-12 pt-5">
-          <header class="itemTitle">{{product.name}}</header>
+          <header class="itemTitle">{{singleProduct.name}}</header>
         </div>
       </div>
       <div class="row">
         <div class="col-12 pt-3">
-          <p class="itemInfo"> {{product.content}} </p>
+          <p class="itemInfo"> {{singleProduct.description}} </p>
         </div>
       </div>
     </div>
   </div>
 
-
-  <div class="white px-5 py-5">
-    <header>Proponowane produkty:</header>
-    <div class="itemsGallery">
-      <div class="itemsShocase row">
-        <div appFavCat appInCat="{{item.cat}}" routerLink="/produkt/{{item.id}}" *ngFor='let item of forU' class="itemsView">
-          <div class="itmesInner">
-            <div class="itemImage">
-              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+  <div class="white px-5 py-5" *ngIf="recomendedProducts | async; let recomendedProducts">
+      <header>Proponowane produkty:</header>
+      <div class="itemsGallery">
+        <div class="itemsShocase row row0">
+          <div appFavCat appInCat="{{recomendedProducts.categoryId}}" routerLink="/produkt/{{recomendedProducts.id}}" *ngFor="let recomendedProducts of recomendedProducts" class="itemsView col-xl-10 offset-xl-1 col-md-12 offset-md-0">
+            <div class="itmesInner col-12 row row0 py-3">
+              <div class="itemImage col-lg-4 col-sm-6 col-12">
+                <img src="http://{{recomendedProducts.image}}" alt="{{recomendedProducts.name}}" class="img-fluid">
+              </div>
+              <div class="itemInfo col-lg-8 col-sm-6 col-12 row row0">
+                <div class="col-12 halfDiv">
+                  <div class="itemPrice col-12 noPd">{{recomendedProducts.price}}zł</div>
+                  <div class="itemName trimText col-12 noPd">{{recomendedProducts.name}}</div>
+                  <div class="itemDate col-12 noPd">{{recomendedProducts.created}}</div>
+                </div>
+                <div class="col-12 halfDiv trimText2 itemDesc">
+                    {{recomendedProducts.description}}
+                </div>
+              </div>
             </div>
-            <div class="trimText itemName">{{item.name}}</div>
-            <div class="itemPrice">{{item.price}}zł</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 </article>

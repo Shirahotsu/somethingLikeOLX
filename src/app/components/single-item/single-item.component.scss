@@ -41,9 +41,57 @@ button{
   margin: 0;
   margin-bottom: 10px;
 }
+nav{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 60px;
+  z-index: 20;
+  background-color: #7296BD;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.showOnLargeOnly, .showOnSmall{
+  display: none !important;
+}
+.itemLilInfo{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.productsImageView{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 @media only screen and (max-width: 1199px){
-  .hideOnMed{
+  .hideOnLargeOnly{
     display: none !important;
   }
+  .showOnLargeOnly{
+    display: flex !important;
+  }
+  button{
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .btn:hover, .btn:active, .btn:focus {
+    box-shadow: none;
+    outline: 0;
+}
 
+.btn:hover{
+  text-shadow: #FFF 0px 0px 6px, 1px 1px 1px rgba(255,255,255,0);
+}
+
+@media only screen and (max-width: 767px){
+  .showOnLargeOnly{
+    display: none !important;
+  }
+  .hideOnLargeOnly{
+    display: block !important;
+  }
+}
 }

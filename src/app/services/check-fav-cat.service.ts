@@ -17,19 +17,19 @@ export class CheckFavCatService {
   constructor( private cookieService: CookieService) {
     this.allCats = [
       {
-        name:'AGD_RTV',
+        name:'3',
         number: 0
       },
       {
-        name:'Obuwie',
+        name:'2',
         number: 0
       },
       {
-        name:'Samochody',
+        name:'1',
         number: 0
       },
       {
-        name:'Zdrowie',
+        name:'4',
         number: 0
       }
     ]
