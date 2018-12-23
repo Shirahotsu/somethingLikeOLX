@@ -6,10 +6,10 @@
         <h1>Móje produkty</h1>
       <div class="col-12 p-4 myProducts">
         <div *ngFor="let product of products" class="row myProduct py-5 ">
-          <div class="col-xl-8 col-6 cutText">
+          <div class="col-xl-8 col-md-6 col-4 cutText">
             {{product.name}}
           </div>
-          <div class="col-xl-4 col-6 row">
+          <div class="col-xl-4 col-md-6 col-8 row">
               <div routerLink="/produkt/{{product.id}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Podgląd</div>
               <div routerLink="/edytuj-produkt/{{product.id}}" class="col-4 myProductBtn primaryColorText accentColorTextHover">Edytuj</div>
               <div (click)="setProductIdAndName(product.id, product.name);deleteModal.show()" class="col-4 myProductBtn primaryColorText accentColorTextHover">Usuń</div>

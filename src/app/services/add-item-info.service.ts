@@ -50,9 +50,6 @@ export class AddItemInfoService {
     if(e[0] === "BLAD"){
       this.infoModal.setAndShowModal(e);
     }
-    else{
-      console.log(e)
-    }
   }
 
 }

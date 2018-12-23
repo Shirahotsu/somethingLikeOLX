@@ -1,11 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import {MenuItem} from '@models/menuItem.model';
-import { CheckFavCatService } from '@services/check-fav-cat.service';
-import { FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms';
-import { LogginSessionService } from '@services/loggin-session.service';
-import { InfoModalService } from '@services/info-modal.service';
-import { CategoryService } from '@services/category.service';
-import { Router } from '@angular/router';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  MenuItem
+} from '@models/menuItem.model';
+import {
+  CheckFavCatService
+} from '@services/check-fav-cat.service';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import {
+  LogginSessionService
+} from '@services/loggin-session.service';
+import {
+  InfoModalService
+} from '@services/info-modal.service';
+import {
+  CategoryService
+} from '@services/category.service';
+import {
+  Router
+} from '@angular/router';
 
 
 @Component({
@@ -18,8 +38,8 @@ export class MenuComponent implements OnInit {
     search: new FormControl('')
   });
   loginForm = this.fb.group({
-    password:   ['', Validators.required],
-    email:      ['', Validators.required],
+    password: ['', Validators.required],
+    email: ['', Validators.required],
   });
 
   menuItem: any;
@@ -30,12 +50,12 @@ export class MenuComponent implements OnInit {
   searchBtn2: boolean;
   isMenuAnimationActive: boolean;
   state: string;
-  isLogingIn:boolean;
-  isMLogingIn:boolean = false;
-  model= "";
-  secondKey:number;
-  d:boolean;
-  arrayOfStrings:string[] = [
+  isLogingIn: boolean;
+  isMLogingIn: boolean = false;
+  model = "";
+  secondKey: number;
+  d: boolean;
+  arrayOfStrings: string[] = [
     "this",
     "is",
     "array",
@@ -49,11 +69,11 @@ export class MenuComponent implements OnInit {
   ];
   howManyCat: number;
   isThereFavCat: boolean;
-  isPassword:boolean = false;
-  isEmail:boolean = false;
+  isPassword: boolean = false;
+  isEmail: boolean = false;
   isLogged;
-  submitted:boolean = false;
-  loginMessage:string = ' ';
+  submitted: boolean = false;
+  loginMessage: string = ' ';
 
 
 
@@ -62,16 +82,15 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private checkFavCat:CheckFavCatService,
+    private checkFavCat: CheckFavCatService,
     private logginSession: LogginSessionService,
-    private infoModal:InfoModalService,
+    private infoModal: InfoModalService,
     private cat: CategoryService,
     private router: Router,
-    )
-    {
+  ) {
     this.logginSession.isLoggedIn.subscribe(
-      res=> {this.isLogged = res
-      console.log(res)
+      res => {
+        this.isLogged = res
       }
     )
     this.getAllCategories();
@@ -89,99 +108,86 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.checkFavCatBtn();
-    // zmienić czas na 5h
-    setInterval(()=> this.logginSession.checkIfCurrentLogged(), 1200000);
+    setInterval(() => this.logginSession.checkIfCurrentLogged(), 18000000);
 
   }
 
-  checkIfUserIsLogged(){
-  }
-  checkFavCatBtn(){
+  checkIfUserIsLogged() {}
+  checkFavCatBtn() {
     this.howManyCat = this.checkFavCat.checkCookieData();
-    if(this.howManyCat === 0){
+    if (this.howManyCat === 0) {
       this.isThereFavCat = false;
-    }
-    else this.isThereFavCat = true;
+    } else this.isThereFavCat = true;
   }
 
-  myCallback1(e){
+  myCallback1(e) {
     this.model = e;
   }
 
-  toggleLoginForm(){
+  toggleLoginForm() {
     this.isLogingIn = !this.isLogingIn;
   }
-  toggleMobileLoginForm(){
+  toggleMobileLoginForm() {
     this.isMLogingIn = !this.isMLogingIn;
   }
-  hideLoginForm(){
+  hideLoginForm() {
     this.isLogingIn = false
   }
-  hideMobileLoginForm(){
+  hideMobileLoginForm() {
     this.isMLogingIn = false
   }
-  logoutUser(){
-    this.logginSession.loggOutUser();
+  logoutUser() {
     this.router.navigate(['/najnowsze']);
+    this.logginSession.loggOutUser();
   }
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
-    if(this.checkIfLoginNotEmpty()){
+    if (this.checkIfLoginNotEmpty()) {
       this.logginSession.sendloginReq(this.loginForm.value.email, this.loginForm.value.password).subscribe(
-        res=>this.checkIfErrorInResponse(res),
+        res => this.checkIfErrorInResponse(res),
         err => this.infoModal.showErrorModal()
-        );
-      console.log('submit')
-    }
-    else{
+      );
+    } else {
       this.pleaseComplateAllFieldsMessage('Wypełnij wszystkie pola');
       return false;
     }
   }
-  checkIfErrorInResponse(e){
-    if(e[1] == "Podaj prawidłowy email lub hasło"){
+  checkIfErrorInResponse(e) {
+    if (e[1] == "Podaj prawidłowy email lub hasło") {
       this.pleaseComplateAllFieldsMessage('Podaj prawidłowy Email lub hasło');
-    }
-    else if(e[0] == 'GIT'){
-      console.log('eh');
+    } else if (e[0] == 'GIT') {
       this.logginSession.logInUserLocal(e[1]);
       this.hideLoginForm();
       this.hideMobileLoginForm();
-    }
-    else{
+    } else {
       this.infoModal.showErrorModal();
     }
   }
-  pleaseComplateAllFieldsMessage(e){
+  pleaseComplateAllFieldsMessage(e) {
     this.loginMessage = e;
   }
-  checkEmail(e){
+  checkEmail(e) {
     let val = e.target.value;
-    if(val !== ''){
+    if (val !== '') {
       this.isEmail = true;
-    }
-    else this.isEmail = false;
+    } else this.isEmail = false;
   }
-  checkPassword(e){
+  checkPassword(e) {
     let val = e.target.value;
-    if(val !== ''){
+    if (val !== '') {
       this.isPassword = true;
-    }
-    else this.isPassword = false;
+    } else this.isPassword = false;
   }
-  checkIfLoginNotEmpty():boolean{
-    if(this.isEmail && this.isPassword){
+  checkIfLoginNotEmpty(): boolean {
+    if (this.isEmail && this.isPassword) {
       return true;
-    }
-    else false;
+    } else false;
   }
 
-  getAllCategories(){
+  getAllCategories() {
     this.cat.getAllCategories().subscribe(
-      res=> {
+      res => {
         this.menuItem = res;
-        console.log(this.menuItem);
-
       }
     );
   }

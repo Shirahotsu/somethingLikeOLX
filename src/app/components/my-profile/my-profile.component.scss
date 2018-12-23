@@ -105,6 +105,12 @@ form{
   font-size: 0.8em;
   font-weight: bold;
 }
+.myNotificationBtn{
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: right;
+}
 .prodInfo{
   font-size: 1.2em;
   overflow: hidden;
@@ -136,9 +142,11 @@ form{
     padding: 0px;
   }
 }
-
-
-
+@media only screen and (max-width: 576px){
+.profileBtns{
+  padding-top: 80px !important;
+}
+}
 
 .textarea{
   display: block;

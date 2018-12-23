@@ -37,6 +37,7 @@ import { AutocomplateComponent } from './components/menu/autocomplate/autocompla
 import { SearchItemsComponent } from './components/search-items/search-items.component';
 import { MobileAutocomplateComponent } from './components/menu/mobile-autocomplate/mobile-autocomplate.component';
 import { UseOnlyPortraitComponent } from './components/use-only-portrait/use-only-portrait.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -65,8 +66,8 @@ const routes: Routes = [
     component: ModifyProfileComponent
   },
   {
-    path: "zmien-haslo",
-    component: ChangePasswordComponent
+    path: "prośby",
+    component: NotificationsComponent
   },
   {
     path: "moje-produkty",
@@ -112,6 +113,7 @@ const routes: Routes = [
     SearchItemsComponent,
     MobileAutocomplateComponent,
     UseOnlyPortraitComponent,
+    NotificationsComponent,
     ],
   imports: [
     BrowserAnimationsModule,

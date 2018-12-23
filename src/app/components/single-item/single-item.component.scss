@@ -65,6 +65,13 @@ nav{
   justify-content: space-around;
   align-items: center;
 }
+.modal-footer{
+  display: flex;
+  justify-content: space-around;
+}
+.modal-title{
+  text-align: center;
+}
 @media only screen and (max-width: 1199px){
   .hideOnLargeOnly{
     display: none !important;
@@ -82,8 +89,11 @@ nav{
     outline: 0;
 }
 
-.btn:hover{
+.btnH:hover{
   text-shadow: #FFF 0px 0px 6px, 1px 1px 1px rgba(255,255,255,0);
+}
+.noPT{
+  cursor: default !important;
 }
 
 @media only screen and (max-width: 767px){

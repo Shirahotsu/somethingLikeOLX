@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SearchService } from '@services/search.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import {
+  SearchService
+} from '@services/search.service';
+import {
+  FormGroup,
+  FormControl
+} from '@angular/forms';
 
 @Component({
   selector: 'app-mobile-autocomplate',
@@ -14,46 +24,43 @@ export class MobileAutocomplateComponent implements OnInit {
   searchForm = new FormGroup({
     search: new FormControl('')
   });
-  arrayOfStrings:any;
+  arrayOfStrings: any;
   constructor(
     private search: SearchService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  hideSearchBar(){
+  hideSearchBar() {
     this.hints = false;
   }
 
-  showSearchBar(){
+  showSearchBar() {
     this.hints = true;
   }
 
-  getDataOnSecondChange(event){
+  getDataOnSecondChange(event) {
     let val = event.target.value;
-    if(val.length > 2){
+    if (val.length > 2) {
       this.hints = true;
       this.search.getSearchResult(val).subscribe(
         res => this.checkDataRes(res),
         err => this.arrayOfStrings = ['Podaj prawidłową nazwę produktu']
       );
-    }
-    else {
+    } else {
       this.arrayOfStrings = null;
       this.hints = false;
     }
   }
-  setHintValue(hint:string){
+  setHintValue(hint: string) {
     this.canStartAnimation = false;
-    this.router.navigate(['/wyszukaj/'+hint]);
+    this.router.navigate(['/wyszukaj/' + hint]);
   }
 
-  checkDataRes(res){
-    if(res.length === 0){
+  checkDataRes(res) {
+    if (res.length === 0) {
       this.arrayOfStrings = ['Brak wyników'];
-    }
-    else this.arrayOfStrings = res
+    } else this.arrayOfStrings = res
   }
 }

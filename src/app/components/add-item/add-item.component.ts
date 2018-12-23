@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import {Router} from "@angular/router"
 import { InfoModalService } from '@services/info-modal.service';
+import { AuthGuardService } from '@services/auth-guard.service';
 
 @Component({
   selector: 'app-add-item',
@@ -36,8 +37,10 @@ export class AddItemComponent implements OnInit {
     private http: HttpClient,
     private addItem:AddItemInfoService,
     private router: Router,
-    private infoModal: InfoModalService
+    private infoModal: InfoModalService,
+    private auth: AuthGuardService
     ) {
+      this.auth.checkIfUserIfLoggedIn();
       this.progressBar.thingsDone.subscribe(
         res=> {
           if(res>=5)  this.cantSendItem = false;

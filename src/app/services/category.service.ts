@@ -32,8 +32,6 @@ export class CategoryService {
         return catId;
       }
     ));
-
-    // console.log(catId);
   }
 
   setCategoriesToVar(){

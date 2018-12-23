@@ -5,32 +5,38 @@
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-5 ">
       <h1>Mój profil</h1>
         <div class="row">
+            <div *ngIf="submitted" class="invalidRegister red-text font-weight-bold">
+                <div *ngIf="submitted && profileForm.invalid">Uzupełnij wszystkie pola</div>
+                <div *ngIf="submitted && numberLen">Numer musi zawirać 9 cyfr</div>
+            </div>
           <div class="col-12 mb-4">
-            <input name="firstname" type="text" class="form-control mb-4" placeholder="Imię">
+            <input name="firstname" type="text" class="form-control mb-4" placeholder="Imię" formControlName="firstName">
           </div>
 
           <div class="col-12 mb-4">
-            <input name="lastName" type="text" class="form-control mb-4" placeholder="Nazwisko">
+            <input name="lastName" type="text" class="form-control mb-4" placeholder="Nazwisko" formControlName="lastName">
           </div>
 
           <div class="col-12 mb-4">
-            <input name="email" type="email" class="form-control mb-4" placeholder="E-mail">
+            <input name="email" type="email" class="form-control mb-4" placeholder="E-mail"
+            formControlName="email">
           </div>
 
           <div class="col-12 mb-4">
-            <input name="city" type="text" class="form-control mb-4" placeholder="Miasto / Wieś">
+            <input name="city" type="text" class="form-control mb-4" placeholder="Miejscowość" formControlName="place">
           </div>
 
           <div class="col-12 mb-4">
-            <input name="postAress" type="text" class="form-control mb-4" placeholder="Kod pocztowy">
+            <input name="postAress" type="text" class="form-control mb-4" placeholder="Kod pocztowy"
+            formControlName="postAdress">
           </div>
 
           <div class="col-12 mb-4">
-            <input name="tel" type="number" class="form-control mb-4" placeholder="Numer telefonu">
+            <input name="tel" type="number" class="form-control mb-4" placeholder="Numer telefonu" formControlName="number">
           </div>
         </div>
         <div class="buttonsView">
-          <button mdbBtn block="true" class="my-4 col-6 offset-3 accentColor" type="button">Zapisz zmiany</button>
+          <button mdbBtn block="true" class="my-4 col-md-6 offset-md-3 col-8 offset-2 accentColor" type="submit">Zapisz zmiany</button>
 
         </div>
       </form>

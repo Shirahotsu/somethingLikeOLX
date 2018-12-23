@@ -52,6 +52,9 @@
         <div *ngIf="submitted && f.number.errors" class="invalidRegister red-text font-weight-bold">
             <div *ngIf="f.number.errors.required">Podaj Numer</div>
         </div>
+        <div *ngIf="submitted && numberLen" class="invalidRegister red-text font-weight-bold">
+            <div>Numer musi zawierać 9 cyfr</div>
+        </div>
         <input name="phone" type="tel" id="registerNumber" [ngClass]="{ 'isInvalid': submitted && f.number.errors }" formControlName="number" class="form-control mb-4" placeholder="Numer telefonu / komórkowy">
 
         <div *ngIf="submitted && f.place.errors" class="invalidRegister red-text font-weight-bold">

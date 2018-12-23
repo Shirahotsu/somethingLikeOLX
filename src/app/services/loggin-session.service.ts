@@ -32,7 +32,6 @@ export class LogginSessionService {
     private jwt: JwtTokenService,
     private infoModal: InfoModalService
     ) {
-      console.log(this.jwt.getJwtToken());
   }
 
   logInUserLocal(e){
@@ -70,8 +69,6 @@ export class LogginSessionService {
   checkExpDate(){
     let expDate = this.getSessionExp();
     let currDate:number = new Date().getTime();
-    console.log(expDate);
-    console.log(expDate-currDate);
 
     if(currDate > expDate){
       this.loggOutUser();
@@ -104,9 +101,9 @@ export class LogginSessionService {
 
   getAllCat(){
     this.http.get(this.url2, this.httpOptions2).subscribe(
-      res => console.log(res),
+      res => '',
       err => console.warn(err),
-      () => console.log('yay')
+      () => ''
     );
   }
 }

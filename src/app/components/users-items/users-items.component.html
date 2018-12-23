@@ -14,7 +14,7 @@
         <div (click)="showItemsModal.hide()" routerLink="/produkt/{{item.id}}" *ngFor="let item of items"  class="productView cp col-12 mt-5">
 
           <div class="producImage col-12">
-              <img src="{{item.image}}" alt="{{item.name}}" class="img-fluid">
+              <img src="http://{{item.image}}" alt="{{item.name}}" class="img-fluid">
           </div>
 
           <div class="productName col-12 pt-4">

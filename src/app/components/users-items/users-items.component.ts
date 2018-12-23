@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { GetDataService } from '@services/get-data.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  UsersProductsService
+} from '@services/users-products.service';
 
 @Component({
   selector: 'app-users-items',
@@ -7,19 +12,19 @@ import { GetDataService } from '@services/get-data.service';
   styleUrls: ['./users-items.component.scss']
 })
 export class UsersItemsComponent implements OnInit {
-  items:any;
+  items: any;
   constructor(
-    private json:GetDataService
-  ) {
-
-  }
+    private userProducts: UsersProductsService
+  ) {}
 
   ngOnInit() {
 
   }
-  getUsersProducts(){
-    this.json.getLocalData().subscribe(
-      res=> this.items = res
+  getUsersProducts() {
+    this.userProducts.getUsersProducts().subscribe(
+      res => res.subscribe(
+        res => this.items = res
+      )
     );
   }
 

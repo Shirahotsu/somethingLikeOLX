@@ -23,7 +23,6 @@ export class CategoryProductsService {
 
 
   getProducts(category:number, x:number){
-    console.log(this.url+'/'+category+'/'+x);
 
     return this.http.get(this.url+'/'+category+'/'+x).pipe(map(
       res => {return res}

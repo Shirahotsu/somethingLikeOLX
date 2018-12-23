@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
   selector: 'app-change-password',
@@ -9,44 +17,41 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 export class ChangePasswordComponent implements OnInit {
   profileForm = this.fb.group({
-    firstName:  ['',Validators.required],
-    lastName:   ['',Validators.required],
-    number:     ['', [Validators.required, Validators.minLength(9)]],
-    email:      ['', [Validators.required]],
-    passwordChck:   ['', [Validators.required, Validators.minLength(8)]],
-    city:       [''],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    number: ['', [Validators.required, Validators.minLength(9)]],
+    email: ['', [Validators.required]],
+    passwordChck: ['', [Validators.required, Validators.minLength(8)]],
+    city: [''],
     postAdress: [''],
   });
   profileForm2 = this.fb.group({
-    password:   ['', [Validators.required, Validators.minLength(8)]],
-    password2:  ['', [Validators.required, Validators.minLength(8)]],
-    password3:  ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    password2: ['', [Validators.required, Validators.minLength(8)]],
+    password3: ['', [Validators.required, Validators.minLength(8)]],
   });
-  public isProfil:boolean;
-  public submitted:boolean = false;
+  public isProfil: boolean;
+  public submitted: boolean = false;
   constructor(private fb: FormBuilder) {
     this.isProfil = true;
   }
 
 
-  ngOnInit() {
+  ngOnInit() {}
+  get f() {
+    return this.profileForm.controls;
   }
-  get f() { return this.profileForm.controls; }
 
   onSubmit() {
-    console.log(this.profileForm.value);
 
     this.submitted = true;
-    // TODO: Use EventEmitter with form value
     if (this.profileForm.invalid || this.profileForm.value.password !== this.profileForm.value.password2) {
       return;
+    } else {
+      alert("kucze działa");
+    }
   }
-  else{
-    alert("kucze działa");
-    console.log(this.profileForm.value);
-  }
-  }
-  toggleProfile(){
+  toggleProfile() {
     this.isProfil = !this.isProfil;
   }
 

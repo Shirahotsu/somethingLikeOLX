@@ -1,18 +1,10 @@
 <article class="">
-  <!-- <nav>
-    <div> {{product.price}}</div>
-    <div>{{product.author}}</div>
-    <div>{{product.city}}</div>
-    <div>Produkty użytkownika</div>
-    <div>Numer kontaktowy</div>
-  </nav> -->
   <div class="white p-5" *ngIf="singleProduct | async; let singleProduct">
     <div class="row">
       <div class="col-xl-9 col-12 productsImageView">
         <img  src="http://{{singleProduct.image}}" class="img-fluid productsImage" alt="{{singleProduct.name}}">
       </div>
       <div class="col-xl-3 col-12">
-        <!-- <div class="row"><span class="item-price">{{product.price}} zł</span></div> -->
         <div class="item-buttons" >
             <button mdbBtn disabled type="button" class="col-12 primaryColor item-btn waves-light search-button hideOnLargeOnly"
               mdbWavesEffect> {{singleProduct.price}} zł</button>
@@ -29,9 +21,13 @@
               </button>
 
 
-              <app-users-items class="col-12 noPd"></app-users-items>
-                <button mdbBtn type="button" class="col-xl-12 col-md-6 col-12 primaryColor item-btn waves-light search-button nrK" mdbWavesEffect>
+
+                <button *ngIf="!canSeeNumber" (click)="basicModal.show()" mdbBtn type="button" class="col-xl-12 col-md-6 col-12 primaryColor item-btn waves-light search-button btnH nrK" mdbWavesEffect>
               Numer kontaktowy</button>
+                <button disabled *ngIf="canSeeNumber" mdbBtn type="button" class="col-xl-12 col-md-6 col-12 primaryColor item-btn search-button noPT nrK" mdbWavesEffect>
+                  {{userNumber}}
+              </button>
+              <app-users-items class="col-12 noPd"></app-users-items>
         </div>
         <div class="col-1"></div>
       </div>
@@ -69,6 +65,23 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4 class="modal-title w-100" id="myModalLabel">Czy chcesz poprosić użytkownika o numer kontaktowy?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" mdbBtn class="waves-light primaryColor" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Nie</button>
+            <button (click)="sendNumberRequestIfLoggedIn();basicModal.hide()" type="button" mdbBtn class="relative waves-light accentColor" mdbWavesEffect>Tak</button>
           </div>
         </div>
       </div>

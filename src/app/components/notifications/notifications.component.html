@@ -1,0 +1,21 @@
+<article class="p-md-5 myProfileView">
+  <div class="formView col-xl-6 col-lg-8 col-md-10 col-12">
+  <app-my-profile></app-my-profile>
+  <div class="row">
+    <div class="col-12 productsView pt-5">
+        <h1>Pośby o numer</h1>
+      <div class="col-12 p-4 myProducts">
+        <div *ngFor="let item of numberRequests | async"  class="row myProduct py-5 ">
+          <div class="col-xl-10 col-8 cutText pb-4" mdbTooltip="{{item.firstName}} {{item.lastName}}" placement="top">
+            {{item.email}}
+          </div>
+          <div class="col-xl-2 col-4 row">
+              <div (click)="acceptRequest(item.id)" class="col-12 myNotificationBtn primaryColorText accentColorTextHover">Akceptuj</div>
+              <!-- <div  class="col-6 myNotificationBtn primaryColorText accentColorTextHover">Ignoruj</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</article>

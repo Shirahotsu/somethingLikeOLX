@@ -18,12 +18,16 @@ export class JwtTokenService {
   delJwtToken(){
     localStorage.setItem('2ZG9udERlYUl09kZ', '2ZG9udERlYUl09kZ');
   }
+  isLoggedIn():boolean{
+    if(this.getJwtToken() !== '2ZG9udERlYUl09kZ'){
+      return true
+    }
+    else return false
+  }
   decodeToken(){
     const token = this.getJwtToken();
-    console.log(token);
 
     if(token !== 'aWR1bm5v'){
-      // console.log(jwt_decode(token));
     }
 
   }

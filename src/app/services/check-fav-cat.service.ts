@@ -38,13 +38,11 @@ export class CheckFavCatService {
   getCookieData(){
     if(this.cookieService.get('favCat') === "" || this.cookieService.get('favCat') === "undefind"){
       let jsonn = JSON.stringify(this.allCats);
-      console.log(jsonn);
       this.cookieService.set( 'favCat', jsonn, 7 );
     }
     return this.cookieService.get('favCat');
   }
   sendCookieData(e){
-    console.log(e);
     e = JSON.stringify(e);
     this.cookieService.set( 'favCat', e, 7 );
   }
